@@ -36,6 +36,9 @@ export const GLYPHS = {
   edit: '<path d="M4 20H20"/><path d="M7 16L16 7"/><path d="M14 5L18 9"/>',
   trash: '<path d="M5 7H19"/><path d="M10 7V4H14V7"/><path d="M7 7L8 20H16L17 7"/>',
   check: '<path d="M5 12.5L10 17.5L19 7"/>',
+  // an up arrow and a down arrow side by side: change the order
+  reorder:
+    '<path d="M8 20V4"/><path d="M4 8L8 4L12 8"/><path d="M16 4V20"/><path d="M12 16L16 20L20 16"/>',
   chevron: '<path d="M9 6L15 12L9 18"/>',
   // an open bracket with a line leaving to the right
   logout: '<path d="M10 4H5V20H10"/><path d="M14 8L18 12L14 16"/><path d="M18 12H9"/>',

@@ -70,6 +70,8 @@ Content is created, edited, and deleted in the database. The app has no forms fo
 | Old `/se/...` style paths | Redirected by the proxy with 308 |
 | `GET /api/tree` | `api/tree/route.ts` |
 | `PATCH /api/items/:id` | `api/items/[id]/route.ts` |
+| `PATCH /api/topics/order` | `api/topics/order/route.ts`, body `{ track, ids }` |
+| `PATCH /api/sections/order` | `api/sections/order/route.ts`, body `{ topicId, ids }` |
 
 Removed: task and step APIs, the composer, edit and archive, the `search` glyph, the System info page, the generated stair icons.
 

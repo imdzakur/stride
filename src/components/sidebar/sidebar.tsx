@@ -2,18 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { useAppData } from '@/client/app-data';
+import { useMenuOrder } from '@/client/menu-order';
+import type { MenuGroup } from '@/shared/menu-order';
 import type { GlyphName } from '@/glyphs/paths';
-import {
-  AREA_LABELS,
-  PRACTICE_TRACKS,
-  areaHref,
-  SYSTEM_AREAS,
-  THEORY_TRACKS,
-  isTrack,
-  type Area,
-} from '@/shared/tracks';
+import { AREA_LABELS, areaHref, isTrack } from '@/shared/tracks';
+import { Glyph } from '../glyph/glyph';
 import { Wordmark } from '../glyph/wordmark';
+import { MoveButtons } from '../ui/move-buttons';
 import { ToneGlyph } from '../glyph/tone-glyph';
 import { Skeleton } from '../skeleton/skeleton';
 import { LogoutButton } from './logout-button';
@@ -27,12 +24,14 @@ type NavLinkProps = {
   tone: string;
   percent?: number | null;
   loading?: boolean;
+  // Set in reorder mode: the row shows up and down buttons after its link.
+  move?: { isFirst: boolean; isLast: boolean; onMove: (delta: -1 | 1) => void };
 };
 
 // A menu row: the area glyph in its tone, the name, and the progress for tracks.
-function NavLink({ href, label, glyph, active, tone, percent, loading }: NavLinkProps) {
+function NavLink({ href, label, glyph, active, tone, percent, loading, move }: NavLinkProps) {
   return (
-    <li data-tone={tone}>
+    <li data-tone={tone} className={move ? styles.moveRow : undefined}>
       <Link href={href} className={styles.link} aria-current={active ? 'page' : undefined}>
         <ToneGlyph glyph={glyph} size="menu" />
         <span className={styles.label}>{label}</span>
@@ -42,20 +41,32 @@ function NavLink({ href, label, glyph, active, tone, percent, loading }: NavLink
           </span>
         ) : null}
       </Link>
+      {move ? (
+        <MoveButtons
+          label={label}
+          isFirst={move.isFirst}
+          isLast={move.isLast}
+          onMove={move.onMove}
+        />
+      ) : null}
     </li>
   );
 }
 
 function AreaGroup({
   title,
-  areas,
+  group,
   pathname,
+  editing,
 }: {
   title: string;
-  areas: readonly Area[];
+  group: MenuGroup;
   pathname: string;
+  editing: boolean;
 }) {
   const { status, trackNode } = useAppData();
+  const { order, move } = useMenuOrder();
+  const areas = order[group];
   const headingId = `menu-group-${title.toLowerCase()}`;
   return (
     <section className={styles.group} aria-labelledby={headingId}>
@@ -63,7 +74,7 @@ function AreaGroup({
         {title}
       </h2>
       <ul className={styles.list}>
-        {areas.map((area) => {
+        {areas.map((area, index) => {
           const href = areaHref(area);
           return (
             <NavLink
@@ -74,8 +85,20 @@ function AreaGroup({
               tone={area}
               active={pathname === href || pathname.startsWith(`${href}/`)}
               // System maps are for reading only, so they carry no progress.
-              percent={isTrack(area) ? (trackNode(area)?.counts.percent ?? null) : undefined}
+              // While reordering, the percent makes room for the move buttons.
+              percent={
+                isTrack(area) && !editing ? (trackNode(area)?.counts.percent ?? null) : undefined
+              }
               loading={status === 'loading'}
+              move={
+                editing
+                  ? {
+                      isFirst: index === 0,
+                      isLast: index === areas.length - 1,
+                      onMove: (delta) => move(group, index, delta),
+                    }
+                  : undefined
+              }
             />
           );
         })}
@@ -86,6 +109,7 @@ function AreaGroup({
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [editing, setEditing] = useState(false);
 
   return (
     <aside className={`glass ${styles.sidebar}`}>
@@ -102,11 +126,22 @@ export function Sidebar() {
             active={pathname === '/dashboard'}
           />
         </ul>
-        <AreaGroup title="Tracks" areas={PRACTICE_TRACKS} pathname={pathname} />
+        <AreaGroup title="Tracks" group="tracks" pathname={pathname} editing={editing} />
         {/* Theory sits apart: it is studied differently from the practice tracks above. */}
-        <AreaGroup title="Theory" areas={THEORY_TRACKS} pathname={pathname} />
-        <AreaGroup title="System" areas={SYSTEM_AREAS} pathname={pathname} />
+        <AreaGroup title="Theory" group="theory" pathname={pathname} editing={editing} />
+        <AreaGroup title="System" group="system" pathname={pathname} editing={editing} />
       </nav>
+      <div className={styles.tools}>
+        <button
+          type="button"
+          className={styles.footerButton}
+          aria-pressed={editing}
+          onClick={() => setEditing((value) => !value)}
+        >
+          <Glyph name={editing ? 'check' : 'reorder'} size={20} />
+          {editing ? 'Done' : 'Reorder menu'}
+        </button>
+      </div>
       <LogoutButton />
     </aside>
   );

@@ -13,6 +13,7 @@ import {
 import { useGateAllowed } from '@/components/device-gate/device-gate';
 import type { Track } from '@/shared/tracks';
 import type { Counts, Item, StudyTree, TrackNode } from '@/shared/types';
+import { moveSectionInTree, moveTopicInTree } from '@/shared/tree-order';
 import { apiRequest, errorMessage, isAbortError } from './api';
 
 type Status = 'loading' | 'ready' | 'error';
@@ -24,6 +25,9 @@ type AppDataValue = {
   trackNode: (track: Track) => TrackNode | null;
   // Returns an error message when the save fails; the tick is rolled back.
   toggleItem: (itemId: string, done: boolean) => Promise<string | null>;
+  // Move one topic or section up (-1) or down (+1); an error message comes back on failure.
+  moveTopic: (track: Track, topicId: string, delta: -1 | 1) => Promise<string | null>;
+  moveSection: (topicId: string, sectionId: string, delta: -1 | 1) => Promise<string | null>;
 };
 
 const AppDataContext = createContext<AppDataValue | null>(null);
@@ -125,15 +129,65 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // The new order shows at once and is saved in the background. A failed save moves the entry
+  // back on the current tree, so ticks made in the meantime are kept.
+  const moveTopic = useCallback(
+    async (track: Track, topicId: string, delta: -1 | 1) => {
+      const change = tree ? moveTopicInTree(tree, track, topicId, delta) : null;
+      if (!change) return null;
+      setTree(change.tree);
+      try {
+        await apiRequest('/api/topics/order', {
+          method: 'PATCH',
+          body: { track, ids: change.ids },
+        });
+        return null;
+      } catch (error) {
+        setTree(
+          (current) =>
+            moveTopicInTree(current ?? change.tree, track, topicId, delta === 1 ? -1 : 1)?.tree ??
+            current,
+        );
+        return errorMessage(error, 'Could not save the order.');
+      }
+    },
+    [tree],
+  );
+
+  const moveSection = useCallback(
+    async (topicId: string, sectionId: string, delta: -1 | 1) => {
+      const change = tree ? moveSectionInTree(tree, topicId, sectionId, delta) : null;
+      if (!change) return null;
+      setTree(change.tree);
+      try {
+        await apiRequest('/api/sections/order', {
+          method: 'PATCH',
+          body: { topicId, ids: change.ids },
+        });
+        return null;
+      } catch (error) {
+        setTree(
+          (current) =>
+            moveSectionInTree(current ?? change.tree, topicId, sectionId, delta === 1 ? -1 : 1)
+              ?.tree ?? current,
+        );
+        return errorMessage(error, 'Could not save the order.');
+      }
+    },
+    [tree],
+  );
+
   const value = useMemo<AppDataValue>(
     () => ({
       status,
       tree,
       refresh,
       toggleItem,
+      moveTopic,
+      moveSection,
       trackNode: (track) => tree?.tracks.find((node) => node.track === track) ?? null,
     }),
-    [status, tree, refresh, toggleItem],
+    [status, tree, refresh, toggleItem, moveTopic, moveSection],
   );
 
   return <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>;

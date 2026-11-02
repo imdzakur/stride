@@ -13,12 +13,13 @@ The SQL files are the source of truth. This document does not copy the SQL.
 | 3 | `0003_progress.sql` | First `get_progress()` | Applied, replaced by 0004 |
 | 4 | `0004_checklists.sql` | `task_items`, derived status, second `get_progress()` | Applied, removed by 0005 |
 | 5 | `0005_topics.sql` | Drops the task model; creates `topics`, `sections`, `items`, triggers, RLS, grants | Applied |
-| 6 | `0006_more_tracks.sql` | Adds `devops` and `dataeng` to `track_key` | **Not applied**; needed before adding topics to those tracks |
+| 6 | `0006_more_tracks.sql` | Adds `devops` and `dataeng` to `track_key` | Needed before adding topics to those tracks |
+| 7 | `0007_reorder.sql` | Grants `update (sort_order)` on topics and sections; adds `reorder_topics` and `reorder_sections` | Applied: a call on 2 November 2026 returned 200, and a mismatched list returned 400 |
 | seed | `supabase/seed/java_example.sql` | Software Engineering, Java, Basic, Intermediate, Advanced, 18 items | Optional example, not applied |
 
 A draft `0006_system_areas.sql` was removed before it ever ran: System areas are maps shipped with the app and have no rows in the database.
 
-Never edit a migration that has run. New changes ship as `0007_*.sql` and later.
+Never edit a migration that has run. New changes ship as `0008_*.sql` and later.
 
 ## How to run
 

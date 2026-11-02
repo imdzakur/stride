@@ -248,3 +248,42 @@
   gap: var(--space-2);
   margin-top: var(--space-6);
 }
+
+/* Reorder mode: two small arrow buttons at the end of a row. */
+.moveButtons {
+  display: inline-flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.moveButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.moveButton:hover:not(:disabled) {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.moveButton:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.moveUp {
+  transform: rotate(-90deg);
+}
+
+.moveDown {
+  transform: rotate(90deg);
+}

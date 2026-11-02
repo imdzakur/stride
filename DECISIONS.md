@@ -25,6 +25,14 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Reordering menus, topics, and sections (2 November 2026, eighth revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| The main menu order (Tracks, Theory, System, each within its own group) can be changed with Reorder menu in the sidebar; the Dashboard cards follow it. | Latest instruction. | Kept in the `stride_menu` cookie and read on the server, so the menu renders in the saved order without a jump. Damaged or old values fall back to the default order. |
+| Topics within a track and sections within a topic can be reordered with Reorder in the topic panel. | Latest instruction. This relaxes the earlier rule that the app only ticks items: it may now also change `sort_order`, never titles or content. | Migration `0007_reorder.sql` grants `update (sort_order)` and adds `reorder_topics` and `reorder_sections`, which take the full id list and reject a list that is not the current set (400, The order no longer matches). The move shows at once and rolls back if the save fails. |
+| Up and down buttons instead of drag and drop. | Works with keyboard and screen readers, and cannot drop an entry into the wrong group. | Reorder mode hides the percentages so the names keep their room. |
+
 ## Brand theme and internship countdown (2 November 2026, seventh revision)
 
 | Decision | Reason | Impact |

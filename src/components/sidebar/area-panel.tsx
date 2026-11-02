@@ -9,6 +9,7 @@ import { AREA_LABELS, areaFromSlug, areaHref, isTrack } from '@/shared/tracks';
 import { Glyph } from '../glyph/glyph';
 import { TopicIcon, hasTopicIcon } from '../glyph/topic-icon';
 import { Skeleton } from '../skeleton/skeleton';
+import { MoveButtons } from '../ui/move-buttons';
 import styles from './area-panel.module.css';
 
 function savePanelOpen(open: boolean): void {
@@ -25,8 +26,10 @@ function savePanelOpen(open: boolean): void {
 // the panel shrinks to a line in the track color along the edge of the main sidebar.
 export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
   const pathname = usePathname();
-  const { status, trackNode } = useAppData();
+  const { status, trackNode, moveTopic, moveSection } = useAppData();
   const [open, setOpen] = useState(initialOpen);
+  const [editing, setEditing] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
   // A topic picked by hand applies to the page it was picked on; a new page opens the
   // topic that page belongs to, or none on the track page.
   const [picked, setPicked] = useState<{ path: string; slug: string | null } | null>(null);
@@ -47,6 +50,12 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
 
   const toggleTopic = (slug: string) => {
     setPicked({ path: pathname, slug: openSlug === slug ? null : slug });
+  };
+
+  // Each move shows at once; a failed save puts it back and explains why.
+  const report = (result: Promise<string | null>) => {
+    setOrderError(null);
+    void result.then(setOrderError);
   };
 
   if (!open) {
@@ -70,6 +79,17 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
       <div className={styles.head}>
         <div className={styles.headRow}>
           <p className={styles.eyebrow}>Track</p>
+          <button
+            type="button"
+            className={styles.reorder}
+            aria-pressed={editing}
+            onClick={() => {
+              setEditing((value) => !value);
+              setOrderError(null);
+            }}
+          >
+            {editing ? 'Done' : 'Reorder'}
+          </button>
           <button
             type="button"
             className={`${styles.toggle} ${styles.toggleClose}`}
@@ -97,6 +117,11 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
       </div>
 
       <div id="area-panel-content">
+        {orderError ? (
+          <p className={styles.error} role="alert">
+            {orderError}
+          </p>
+        ) : null}
         {!node && status === 'loading' ? (
           <div className={styles.loading} aria-hidden="true">
             <Skeleton shape="line" width="70%" />
@@ -111,31 +136,45 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
 
         {node ? (
           <ul className={styles.topics}>
-            {node.topics.map((topic) => {
+            {node.topics.map((topic, topicIndex) => {
               const topicHref = `${base}/${topic.slug}`;
               const expanded = openSlug === topic.slug;
               const listId = `panel-topic-${topic.id}`;
               return (
                 <li key={topic.id} className={styles.topic}>
-                  <button
-                    type="button"
-                    className={styles.topicButton}
-                    aria-expanded={expanded}
-                    aria-controls={listId}
-                    data-active={activeSlug === topic.slug || undefined}
-                    onClick={() => toggleTopic(topic.slug)}
-                  >
-                    {hasTopicIcon(topic.title) ? (
-                      <TopicIcon title={topic.title} size={16} />
-                    ) : (
-                      <span className={styles.dot} aria-hidden="true" />
-                    )}
-                    <span className={styles.label}>{topic.title}</span>
-                    <span className={styles.count}>{topic.counts.percent}%</span>
-                    <span className={styles.chevron} aria-hidden="true">
-                      <Glyph name="chevron" size={16} />
-                    </span>
-                  </button>
+                  <div className={styles.topicRow}>
+                    <button
+                      type="button"
+                      className={styles.topicButton}
+                      aria-expanded={expanded}
+                      aria-controls={listId}
+                      data-active={activeSlug === topic.slug || undefined}
+                      onClick={() => toggleTopic(topic.slug)}
+                    >
+                      {hasTopicIcon(topic.title) ? (
+                        <TopicIcon title={topic.title} size={16} />
+                      ) : (
+                        <span className={styles.dot} aria-hidden="true" />
+                      )}
+                      <span className={styles.label}>{topic.title}</span>
+                      {editing ? null : (
+                        <>
+                          <span className={styles.count}>{topic.counts.percent}%</span>
+                          <span className={styles.chevron} aria-hidden="true">
+                            <Glyph name="chevron" size={16} />
+                          </span>
+                        </>
+                      )}
+                    </button>
+                    {editing ? (
+                      <MoveButtons
+                        label={topic.title}
+                        isFirst={topicIndex === 0}
+                        isLast={topicIndex === node.topics.length - 1}
+                        onMove={(delta) => report(moveTopic(area, topic.id, delta))}
+                      />
+                    ) : null}
+                  </div>
                   {expanded ? (
                     <ul id={listId} className={styles.sections}>
                       <li>
@@ -147,10 +186,10 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
                           <span className={styles.label}>All sections</span>
                         </Link>
                       </li>
-                      {topic.sections.map((section) => {
+                      {topic.sections.map((section, sectionIndex) => {
                         const sectionHref = `${topicHref}/${section.slug}`;
                         return (
-                          <li key={section.id}>
+                          <li key={section.id} className={editing ? styles.moveRow : undefined}>
                             <Link
                               href={sectionHref}
                               className={styles.sectionLink}
@@ -161,6 +200,14 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
                                 {section.counts.done}/{section.counts.total}
                               </span>
                             </Link>
+                            {editing ? (
+                              <MoveButtons
+                                label={section.title}
+                                isFirst={sectionIndex === 0}
+                                isLast={sectionIndex === topic.sections.length - 1}
+                                onMove={(delta) => report(moveSection(topic.id, section.id, delta))}
+                              />
+                            ) : null}
                           </li>
                         );
                       })}

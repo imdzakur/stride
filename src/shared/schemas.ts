@@ -26,6 +26,21 @@ export const loginSchema = z.strictObject({
     .max(1024, { error: 'Password is too long.' }),
 });
 
+// A new order is the full list of ids, first to last. Ids are lowercased like route ids.
+const orderIdsSchema = z
+  .array(
+    uuidSchema.transform((id) => id.toLowerCase()),
+    { error: 'ids must be a list.' },
+  )
+  .max(500, { error: 'Too many ids.' });
+
+export const topicOrderSchema = z.strictObject({ track: trackSchema, ids: orderIdsSchema });
+
+export const sectionOrderSchema = z.strictObject({
+  topicId: uuidSchema.transform((id) => id.toLowerCase()),
+  ids: orderIdsSchema,
+});
+
 export type ItemUpdateInput = z.infer<typeof itemUpdateSchema>;
 
 export function isSlug(value: string): boolean {

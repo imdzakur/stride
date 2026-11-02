@@ -2,14 +2,8 @@
 
 import Link from 'next/link';
 import { useAppData } from '@/client/app-data';
-import {
-  AREA_LABELS,
-  PRACTICE_TRACKS,
-  SYSTEM_AREAS,
-  THEORY_TRACKS,
-  type Track,
-  areaHref,
-} from '@/shared/tracks';
+import { useMenuOrder } from '@/client/menu-order';
+import { AREA_LABELS, type Track, areaHref } from '@/shared/tracks';
 import { systemMap } from '@/system-maps';
 import type { Counts } from '@/shared/types';
 import { ProgressBar } from '../progress/progress-bar';
@@ -99,13 +93,14 @@ function AreaCard({ title, areas }: AreaCardProps) {
 
 // System areas are overviews to read, so they carry no progress.
 function SystemCard() {
+  const { order } = useMenuOrder();
   return (
     <section className={`glass ${pageStyles.card}`} aria-labelledby="dashboard-system">
       <h2 id="dashboard-system" className={pageStyles.sectionTitle}>
         System
       </h2>
       <ul className={styles.tracks}>
-        {SYSTEM_AREAS.map((area) => {
+        {order.system.map((area) => {
           const map = systemMap(area);
           return (
             <li key={area} data-tone={area}>
@@ -124,6 +119,8 @@ function SystemCard() {
 
 export function DashboardView({ initialLaterOpen }: { initialLaterOpen: boolean }) {
   const { status, tree, refresh } = useAppData();
+  // The cards follow the order chosen in the sidebar.
+  const { order } = useMenuOrder();
   const loading = status === 'loading' && !tree;
 
   return (
@@ -144,8 +141,8 @@ export function DashboardView({ initialLaterOpen }: { initialLaterOpen: boolean 
         <div aria-busy={loading}>
           {loading ? <p className="sr-only">Loading data.</p> : null}
           <Overall counts={tree?.overall ?? null} />
-          <AreaCard title="Tracks" areas={PRACTICE_TRACKS} />
-          <AreaCard title="Theory" areas={THEORY_TRACKS} />
+          <AreaCard title="Tracks" areas={order.tracks} />
+          <AreaCard title="Theory" areas={order.theory} />
           <SystemCard />
         </div>
       )}
