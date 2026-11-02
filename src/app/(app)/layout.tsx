@@ -7,7 +7,12 @@ import { AppShell } from '@/components/shell/app-shell';
 import { SESSION_COOKIE_NAME } from '@/server/auth/session';
 import { isValidSessionToken } from '@/server/auth/session-check';
 import { MENU_COOKIE_NAME, parseMenuOrder } from '@/shared/menu-order';
-import { PANEL_COOKIE_NAME, parsePanelOpen } from '@/shared/panel';
+import {
+  PANEL_COOKIE_NAME,
+  PANEL_WIDTH_COOKIE_NAME,
+  parsePanelOpen,
+  parsePanelWidth,
+} from '@/shared/panel';
 
 // This layout only checks the session. It never queries tasks;
 // data loads in the browser after DeviceGate passes. The panel cookie is read here so
@@ -21,6 +26,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       <AppDataProvider>
         <AppShell
           initialPanelOpen={parsePanelOpen(cookieStore.get(PANEL_COOKIE_NAME)?.value)}
+          initialPanelWidth={parsePanelWidth(cookieStore.get(PANEL_WIDTH_COOKIE_NAME)?.value)}
           initialMenuOrder={parseMenuOrder(cookieStore.get(MENU_COOKIE_NAME)?.value)}
         >
           {children}

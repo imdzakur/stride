@@ -8,17 +8,19 @@ import styles from './app-shell.module.css';
 export function AppShell({
   children,
   initialPanelOpen,
+  initialPanelWidth,
   initialMenuOrder,
 }: {
   children: ReactNode;
   initialPanelOpen: boolean;
+  initialPanelWidth: number;
   initialMenuOrder: MenuOrder;
 }) {
   return (
     <MenuOrderProvider initial={initialMenuOrder}>
       <div className={styles.shell}>
         <Sidebar />
-        <AreaPanel initialOpen={initialPanelOpen} />
+        <AreaPanel initialOpen={initialPanelOpen} initialWidth={initialPanelWidth} />
         <main className={styles.main}>
           <div className={styles.content}>{children}</div>
         </main>
