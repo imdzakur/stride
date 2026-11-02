@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  daysUntil,
   localMidnight,
   parseLaterOpen,
   remainingUntil,
@@ -45,5 +46,20 @@ describe('later countdown preference', () => {
     expect(parseLaterOpen('garbage')).toBe(true);
     expect(parseLaterOpen(serializeLaterOpen(false))).toBe(false);
     expect(parseLaterOpen(serializeLaterOpen(true))).toBe(true);
+  });
+});
+
+describe('daysUntil', () => {
+  it('counts whole calendar days to the internship end', () => {
+    const morning = new Date(2026, 10, 2, 9, 30).getTime();
+    const lateEvening = new Date(2026, 10, 2, 23, 59).getTime();
+    expect(daysUntil('2027-03-20', morning)).toBe(138);
+    expect(daysUntil('2027-03-20', lateEvening)).toBe(138);
+  });
+
+  it('reaches 1 the day before and stays at 0 from the day itself', () => {
+    expect(daysUntil('2027-03-20', new Date(2027, 2, 19, 8).getTime())).toBe(1);
+    expect(daysUntil('2027-03-20', new Date(2027, 2, 20, 8).getTime())).toBe(0);
+    expect(daysUntil('2027-03-20', new Date(2027, 5, 1).getTime())).toBe(0);
   });
 });

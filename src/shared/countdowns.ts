@@ -18,6 +18,14 @@ export const LATER_COUNTDOWNS: Countdown[] = [
   { id: 'oct-2028', date: '2028-10-24', label: '24 October 2028', tone: 'neutral' },
 ];
 
+// The internship card shows whole days only, counted in calendar days.
+export const INTERNSHIP_COUNTDOWN = {
+  id: 'internship',
+  date: '2027-03-20',
+  label: 'Internship',
+  dateLabel: '20 March 2027',
+} as const;
+
 export type Remaining = {
   done: boolean;
   days: number;
@@ -44,6 +52,16 @@ export function remainingUntil(targetMs: number, nowMs: number): Remaining {
     minutes: Math.floor((totalSeconds % 3600) / 60),
     seconds: totalSeconds % 60,
   };
+}
+
+const DAY = 86_400_000;
+
+// Calendar days from today to the date: tomorrow is 1, today or past is 0. Rounding absorbs the
+// hour lost or gained when daylight saving time changes in between.
+export function daysUntil(date: string, nowMs: number): number {
+  const now = new Date(nowMs);
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  return Math.max(0, Math.round((localMidnight(date) - today) / DAY));
 }
 
 export const COUNTDOWN_COOKIE_NAME = 'stride_countdown';

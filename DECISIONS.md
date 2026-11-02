@@ -25,6 +25,13 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Brand theme and internship countdown (2 November 2026, seventh revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| The base theme uses the brand kit palette: Stride blue `#4353FF` for actions, focus, progress, and the Dashboard tone; Ink `#191A24` for text; Canvas `#F5F4EF` for the background; White for cards. | Latest instruction. | Tokens `--brand-*` in `tokens.css`; the area pastels stay for the tracks and System areas. |
+| An Internship card above the countdowns shows only the whole days left until 20 March 2027. | Latest instruction: days only. | `daysUntil` counts calendar days, so the number changes at local midnight and reads 0 from the end date on. |
+
 ## Tracks, plain icons, readable slugs, and the topic accordion (2 November 2026, sixth revision)
 
 | Decision | Reason | Impact |

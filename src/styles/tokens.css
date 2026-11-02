@@ -1,28 +1,35 @@
 /* Copied from DESIGN-2.md (active design). Components only read these variables. */
 :root {
-  /* Base: warm paper with soft ink text */
-  --color-bg: #f6f4f0;
-  --color-surface: #fffdf9;
-  --color-surface-container: #f1eee8;
-  --color-surface-container-high: #e9e5dd;
-  --color-text: #2b2a33;
-  --color-muted: #615e6c;
-  --color-subtle: #8a8796;
-  --color-line: rgba(43, 42, 51, 0.08);
-  --color-control-border: #c9c4bb;
+  /* Brand palette from the Stride brand kit */
+  --brand-blue: #4353ff;
+  --brand-ink: #191a24;
+  --brand-canvas: #f5f4ef;
+  --brand-white: #ffffff;
+
+  /* Base: canvas background, white surfaces, ink text, Stride blue for actions */
+  --color-bg: var(--brand-canvas);
+  --color-surface: var(--brand-white);
+  --color-surface-container: #eeede6;
+  --color-surface-container-high: #e6e4db;
+  --color-text: var(--brand-ink);
+  --color-muted: #5a5b69;
+  --color-subtle: #888996;
+  --color-line: rgba(25, 26, 36, 0.08);
+  --color-control-border: #cfcdc4;
   --color-error: #b0413e;
 
-  --color-primary: #34323f;
-  --color-primary-hover: #4a4757;
-  --color-primary-pressed: #5d5a6b;
-  --color-on-primary: #fffdf9;
-  --color-hover: rgba(43, 42, 51, 0.05);
-  --color-pressed: rgba(43, 42, 51, 0.09);
-  --color-focus: #34323f;
+  --color-primary: var(--brand-blue);
+  --color-primary-hover: #3442ec;
+  --color-primary-pressed: #2a37d1;
+  --color-on-primary: var(--brand-white);
+  --color-primary-container: #e7e9ff;
+  --color-hover: rgba(25, 26, 36, 0.05);
+  --color-pressed: rgba(25, 26, 36, 0.09);
+  --color-focus: var(--brand-blue);
 
-  --color-progress-track: rgba(43, 42, 51, 0.08);
-  --color-progress-fill: #34323f;
-  --color-skeleton: rgba(43, 42, 51, 0.07);
+  --color-progress-track: rgba(25, 26, 36, 0.08);
+  --color-progress-fill: var(--brand-blue);
+  --color-skeleton: rgba(25, 26, 36, 0.07);
 
   /* Soft pastel per area: a light container for shapes and a deeper tone for text and bars */
   --pastel-sky: #dcebfa;
@@ -51,14 +58,14 @@
   --color-deadline-orange-container: #fce7cf;
 
   /* Surfaces: a light frosted card, kept simple */
-  --glass-fill: rgba(255, 253, 249, 0.82);
-  --glass-fill-strong: rgba(255, 253, 249, 0.96);
-  --glass-border: rgba(43, 42, 51, 0.07);
+  --glass-fill: rgba(255, 255, 255, 0.86);
+  --glass-fill-strong: rgba(255, 255, 255, 0.97);
+  --glass-border: rgba(25, 26, 36, 0.07);
   --glass-blur: 14px;
   --glass-saturate: 140%;
-  --glass-shadow: 0 1px 2px rgba(43, 42, 51, 0.04);
-  --dialog-shadow: 0 18px 48px rgba(43, 42, 51, 0.16);
-  --backdrop-tint: rgba(43, 42, 51, 0.2);
+  --glass-shadow: 0 1px 2px rgba(25, 26, 36, 0.04);
+  --dialog-shadow: 0 18px 48px rgba(25, 26, 36, 0.16);
+  --backdrop-tint: rgba(25, 26, 36, 0.2);
 
   /* Typography */
   --font-sans: var(--font-google-sans-flex), system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -195,6 +202,6 @@
 }
 
 [data-tone='neutral'] {
-  --tone: var(--pastel-periwinkle-strong);
-  --tone-container: var(--pastel-periwinkle);
+  --tone: var(--brand-blue);
+  --tone-container: var(--color-primary-container);
 }

@@ -12,6 +12,7 @@ import {
 import { Glyph } from '../glyph/glyph';
 import pageStyles from '../shell/page.module.css';
 import { CountdownCard } from './countdown-row';
+import { InternshipCard } from './internship-card';
 import styles from './countdown.module.css';
 import { useSecond } from './use-second';
 
@@ -61,6 +62,7 @@ export function Countdowns({ initialLaterOpen }: { initialLaterOpen: boolean }) 
           </span>
         </button>
       </div>
+      <InternshipCard now={now} />
       <ul className={styles.grid}>
         {PRIMARY_COUNTDOWNS.map((countdown) => (
           <CountdownCard
