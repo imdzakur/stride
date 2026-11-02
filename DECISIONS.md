@@ -25,6 +25,12 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Languages track (2 November 2026, ninth revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| A Languages track (`lang`, `/languages`) joins the practice tracks, for topics such as English or Japanese. | Latest instruction: a menu for learning languages, not a switch of the interface language. | It sits last in the Tracks group and can be moved with Reorder menu; saved menu orders get it appended. Migration `0008_languages_track.sql` adds the enum value before topics can be added. |
+
 ## Reordering menus, topics, and sections (2 November 2026, eighth revision)
 
 | Decision | Reason | Impact |

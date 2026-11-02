@@ -1,6 +1,6 @@
 // Tracks hold topics, sections, and items in the database (enum track_key). The menu shows
 // practice tracks first, then the theory tracks behind their own divider.
-export const PRACTICE_TRACKS = ['se', 'ai', 'data', 'devops', 'dataeng'] as const;
+export const PRACTICE_TRACKS = ['se', 'ai', 'data', 'devops', 'dataeng', 'lang'] as const;
 export const THEORY_TRACKS = ['math', 'stats'] as const;
 export const TRACKS = [...PRACTICE_TRACKS, ...THEORY_TRACKS] as const;
 
@@ -17,6 +17,7 @@ export const AREA_LABELS: Record<Area, string> = {
   data: 'Data Science',
   devops: 'Development and Operations',
   dataeng: 'Data Engineering',
+  lang: 'Languages',
   math: 'Mathematics',
   stats: 'Statistics',
   finance: 'Finance',
@@ -41,6 +42,7 @@ export const AREA_SLUGS: Record<Area, string> = {
   data: 'data-science',
   devops: 'development-and-operations',
   dataeng: 'data-engineering',
+  lang: 'languages',
   math: 'mathematics',
   stats: 'statistics',
   finance: 'finance',

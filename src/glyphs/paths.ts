@@ -16,6 +16,8 @@ export const GLYPHS = {
   // a small database feeding a pipe into a second one: moving data between stores
   dataeng:
     '<ellipse cx="6.5" cy="6" rx="3.5" ry="1.5"/><path d="M3 6V11C3 11.8 4.6 12.5 6.5 12.5S10 11.8 10 11V6"/><ellipse cx="17.5" cy="13" rx="3.5" ry="1.5"/><path d="M14 13V18C14 18.8 15.6 19.5 17.5 19.5S21 18.8 21 18V13"/><path d="M10 9H12.5C13.3 9 14 9.7 14 10.5V13"/>',
+  // a speech bubble with two lines of text: spoken and written languages
+  lang: '<path d="M4 5H20V15H11L7 19V15H4Z"/><path d="M8 9H16"/><path d="M8 12H13"/>',
   // a bell curve with a mean line: distribution
   stats: '<path d="M3 19H21"/><path d="M3 19C8 19 9 5 12 5C15 5 16 19 21 19"/><path d="M12 5V19"/>',
 

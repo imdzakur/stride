@@ -46,6 +46,7 @@ describe('area groups', () => {
       'Data Science',
       'Development and Operations',
       'Data Engineering',
+      'Languages',
     ]);
     expect(THEORY_TRACKS.map((t) => AREA_LABELS[t])).toEqual(['Mathematics', 'Statistics']);
     expect(SYSTEM_AREAS).toHaveLength(5);

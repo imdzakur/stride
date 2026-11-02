@@ -74,6 +74,7 @@ describe('buildTree', () => {
       'data',
       'devops',
       'dataeng',
+      'lang',
       'math',
       'stats',
     ]);

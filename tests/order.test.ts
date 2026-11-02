@@ -54,7 +54,7 @@ describe('menu order cookie', () => {
     expect(parseMenuOrder(undefined)).toEqual(DEFAULT_MENU_ORDER);
     expect(parseMenuOrder('garbage')).toEqual(DEFAULT_MENU_ORDER);
     const repaired = parseMenuOrder('v1:data.data.nope|stats');
-    expect(repaired.tracks).toEqual(['data', 'se', 'ai', 'devops', 'dataeng']);
+    expect(repaired.tracks).toEqual(['data', 'se', 'ai', 'devops', 'dataeng', 'lang']);
     expect(repaired.theory).toEqual(['stats', 'math']);
     expect(repaired.system).toEqual(DEFAULT_MENU_ORDER.system);
   });
