@@ -8,7 +8,7 @@ Current status:
 | `.env.local` | Created on the laptop; gitignored |
 | Supabase key | Accepted by the project in a read-only check; it was shared in chat, so it is for local development only |
 | Supabase migrations | 0001 to 0005 applied; content entered by the owner (Java, 104 items) |
-| GitHub repo | Not created, no commits |
+| GitHub repo | `imdzakur/stride`, branch `main`, pushed over HTTPS on 2 November 2026 |
 | Vercel project | Not created |
 | Deployment | Not done |
 | Rotation of keys shared in chat | Not done |
