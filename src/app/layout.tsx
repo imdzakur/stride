@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Google_Sans_Flex } from 'next/font/google';
 import type { ReactNode } from 'react';
-import { BackgroundShapes } from '@/components/shape/background-shapes';
 import '@/styles/global.css';
 
 // Self-hosted at build time by next/font; the browser never calls Google Fonts.
@@ -34,10 +33,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={googleSansFlex.variable}>
-      <body>
-        <BackgroundShapes />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

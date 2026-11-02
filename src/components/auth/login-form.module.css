@@ -16,41 +16,6 @@
   border-radius: var(--radius-dialog);
 }
 
-.shapes {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.shapes svg {
-  width: 1.75rem;
-  height: 1.75rem;
-  transition: transform var(--duration-normal) var(--ease-emphasized);
-}
-
-.card:focus-within .shapes svg:nth-child(odd) {
-  transform: rotate(30deg);
-}
-
-.card:focus-within .shapes svg:nth-child(even) {
-  transform: rotate(-30deg);
-}
-
-.shapeSky {
-  color: var(--pastel-sky);
-}
-
-.shapeRose {
-  color: var(--pastel-rose);
-}
-
-.shapeMint {
-  color: var(--pastel-mint);
-}
-
-.shapeButter {
-  color: var(--pastel-butter);
-}
-
 .header {
   display: flex;
   flex-direction: column;

@@ -6,11 +6,12 @@
   --brand-canvas: #f5f4ef;
   --brand-white: #ffffff;
 
-  /* Base: canvas background, white surfaces, ink text, Stride blue for actions */
-  --color-bg: var(--brand-canvas);
-  --color-surface: var(--brand-white);
-  --color-surface-container: #eeede6;
-  --color-surface-container-high: #e6e4db;
+  /* Base: a slightly deeper canvas and soft white surfaces so nothing glares; ink text and a
+     calmer Stride blue for actions. */
+  --color-bg: #eeece5;
+  --color-surface: #fbfaf7;
+  --color-surface-container: #e9e7df;
+  --color-surface-container-high: #e1dfd6;
   --color-text: var(--brand-ink);
   --color-muted: #5a5b69;
   --color-subtle: #888996;
@@ -18,20 +19,20 @@
   --color-control-border: #cfcdc4;
   --color-error: #b0413e;
 
-  --color-primary: var(--brand-blue);
-  --color-primary-hover: #3442ec;
-  --color-primary-pressed: #2a37d1;
+  --color-primary: #3341cc;
+  --color-primary-hover: #2a37b3;
+  --color-primary-pressed: #222d99;
   --color-on-primary: var(--brand-white);
-  --color-primary-container: #e7e9ff;
+  --color-primary-container: #e1e3f3;
   --color-hover: rgba(25, 26, 36, 0.05);
   --color-pressed: rgba(25, 26, 36, 0.09);
-  --color-focus: var(--brand-blue);
+  --color-focus: var(--color-primary);
 
   --color-progress-track: rgba(25, 26, 36, 0.08);
-  --color-progress-fill: var(--brand-blue);
+  --color-progress-fill: var(--color-primary);
   --color-skeleton: rgba(25, 26, 36, 0.07);
 
-  /* Soft pastel per area: a light container for shapes and a deeper tone for text and bars */
+  /* Pastel pairs for the box categories inside System maps */
   --pastel-sky: #dcebfa;
   --pastel-sky-strong: #33689f;
   --pastel-rose: #f8dfe7;
@@ -48,8 +49,6 @@
   --pastel-sand-strong: #75582c;
   --pastel-periwinkle: #e3e6f7;
   --pastel-periwinkle-strong: #48508a;
-  --pastel-lime: #e4efd2;
-  --pastel-lime-strong: #4e6a1c;
 
   /* Deadline countdowns */
   --color-deadline-red: #a8383a;
@@ -58,8 +57,8 @@
   --color-deadline-orange-container: #fce7cf;
 
   /* Surfaces: a light frosted card, kept simple */
-  --glass-fill: rgba(255, 255, 255, 0.86);
-  --glass-fill-strong: rgba(255, 255, 255, 0.97);
+  --glass-fill: rgba(251, 250, 247, 0.9);
+  --glass-fill-strong: rgba(251, 250, 247, 0.98);
   --glass-border: rgba(25, 26, 36, 0.07);
   --glass-blur: 14px;
   --glass-saturate: 140%;
@@ -139,69 +138,9 @@
   --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
 }
 
-/* Each area owns one pastel pair; components read --tone and --tone-container. */
-[data-tone='se'] {
-  --tone: var(--pastel-sky-strong);
-  --tone-container: var(--pastel-sky);
-}
-
-[data-tone='ai'] {
-  --tone: var(--pastel-rose-strong);
-  --tone-container: var(--pastel-rose);
-}
-
-[data-tone='data'] {
-  --tone: var(--pastel-mint-strong);
-  --tone-container: var(--pastel-mint);
-}
-
-[data-tone='devops'] {
-  --tone: var(--pastel-lime-strong);
-  --tone-container: var(--pastel-lime);
-}
-
-[data-tone='dataeng'] {
-  --tone: var(--pastel-aqua-strong);
-  --tone-container: var(--pastel-aqua);
-}
-
-[data-tone='math'] {
-  --tone: var(--pastel-butter-strong);
-  --tone-container: var(--pastel-butter);
-}
-
-[data-tone='stats'] {
-  --tone: var(--pastel-peach-strong);
-  --tone-container: var(--pastel-peach);
-}
-
-/* System areas reuse the family and add two calm pairs of their own. */
-[data-tone='finance'] {
-  --tone: var(--pastel-aqua-strong);
-  --tone-container: var(--pastel-aqua);
-}
-
-[data-tone='logistics'] {
-  --tone: var(--pastel-sand-strong);
-  --tone-container: var(--pastel-sand);
-}
-
-[data-tone='retail'] {
-  --tone: var(--pastel-rose-strong);
-  --tone-container: var(--pastel-rose);
-}
-
-[data-tone='health'] {
-  --tone: var(--pastel-mint-strong);
-  --tone-container: var(--pastel-mint);
-}
-
-[data-tone='travel'] {
-  --tone: var(--pastel-sky-strong);
-  --tone-container: var(--pastel-sky);
-}
-
-[data-tone='neutral'] {
-  --tone: var(--brand-blue);
+/* One theme across the app: every area and the Dashboard read the same primary tone. The
+   pastel pairs above remain only for the categories inside System maps. */
+[data-tone] {
+  --tone: var(--color-primary);
   --tone-container: var(--color-primary-container);
 }

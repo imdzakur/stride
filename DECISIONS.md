@@ -30,7 +30,8 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Decision | Reason | Impact |
 | --- | --- | --- |
 | The base theme uses the brand kit palette: Stride blue `#4353FF` for actions, focus, progress, and the Dashboard tone; Ink `#191A24` for text; Canvas `#F5F4EF` for the background; White for cards. | Latest instruction. | Tokens `--brand-*` in `tokens.css`; the area pastels stay for the tracks and System areas. |
-| An Internship card above the countdowns shows only the whole days left until 20 March 2027. | Latest instruction: days only. | `daysUntil` counts calendar days, so the number changes at local midnight and reads 0 from the end date on. |
+| One theme everywhere, from sign-in to the deepest page: every area tone, the sidebar, and the Dashboard use the primary blue. The blue is deepened to `#3341CC` and the canvas and cards are a shade darker so nothing glares. The pastel blobs, the shape row on sign-in, and the per-area pastel colors are removed. | Latest instruction: the bright blue and colorful decorations looked generated. | One `[data-tone]` rule sets `--tone`; pastel pairs remain only for System map categories, red and orange stay for the two deadlines, and topic icons keep their brand colors. |
+| An Internship card above the countdowns shows only the whole days left until 20 March 2027, as a plain card without an accent edge. | Latest instruction: days only. | `daysUntil` counts calendar days, so the number changes at local midnight and reads 0 from the end date on. |
 
 ## Tracks, plain icons, readable slugs, and the topic accordion (2 November 2026, sixth revision)
 

@@ -221,7 +221,7 @@
   height: var(--icon-bubble);
   margin-bottom: var(--space-4);
   border-radius: var(--radius-button);
-  background: var(--pastel-periwinkle);
+  background: var(--color-primary-container);
   color: var(--color-primary);
 }
 

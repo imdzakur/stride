@@ -17,8 +17,8 @@
 }
 
 .card {
-  --tone: var(--pastel-periwinkle-strong);
-  --tone-shape: var(--pastel-periwinkle);
+  --tone: var(--color-primary);
+  --tone-shape: var(--color-primary-container);
   display: flex;
   align-items: center;
   gap: var(--space-4);
@@ -37,8 +37,8 @@
 }
 
 .neutral {
-  --tone: var(--pastel-periwinkle-strong);
-  --tone-shape: var(--pastel-periwinkle);
+  --tone: var(--color-primary);
+  --tone-shape: var(--color-primary-container);
 }
 
 .days {
@@ -158,22 +158,21 @@
   transform: rotate(-90deg);
 }
 
-/* Internship: one wide card with the days left in Stride blue, no clock below it. */
+/* Internship: one wide, plain card with the days left and no clock below it. */
 .internship {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-5);
   margin-top: var(--space-2);
   padding: var(--space-4) var(--space-5);
   border-radius: var(--radius-card);
-  border-left: 4px solid var(--brand-blue);
 }
 
 .internshipDays {
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  min-width: 9rem;
 }
 
 .internshipValue {
@@ -181,14 +180,14 @@
   line-height: 1;
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
-  color: var(--brand-blue);
+  color: var(--color-text);
   font-variant-numeric: tabular-nums;
 }
 
 .internshipUnit {
   font-size: var(--text-label-size);
   font-weight: var(--weight-medium);
-  color: var(--brand-blue);
+  color: var(--color-muted);
 }
 
 .internshipTitle {

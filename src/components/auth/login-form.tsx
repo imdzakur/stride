@@ -6,7 +6,6 @@ import { useGateAllowed } from '@/components/device-gate/device-gate';
 import { fieldErrors, loginSchema } from '@/shared/schemas';
 import { Glyph } from '../glyph/glyph';
 import { Wordmark } from '../glyph/wordmark';
-import { Shape } from '../shape/shape';
 import { Button, IconButton } from '../ui/button';
 import { FormError, TextField } from '../ui/field';
 import styles from './login-form.module.css';
@@ -45,12 +44,6 @@ export function LoginForm() {
   return (
     <main className={styles.page}>
       <form className={`glass ${styles.card}`} onSubmit={submit} noValidate>
-        <div className={styles.shapes} aria-hidden="true">
-          <Shape kind="cookie6" className={styles.shapeSky} />
-          <Shape kind="clover4" className={styles.shapeRose} />
-          <Shape kind="cookie4" className={styles.shapeMint} />
-          <Shape kind="pentagon" className={styles.shapeButter} />
-        </div>
         <div className={styles.header}>
           <Wordmark />
           <h1 className={styles.title}>Sign in</h1>

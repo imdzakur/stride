@@ -52,7 +52,7 @@ const ICONS: Record<TopicIconName, { label: string; color: string }> = {
   express: { label: 'Express', color: 'var(--color-text)' },
   dotnet: { label: '.NET', color: '#512bd4' },
   terminal: { label: 'Terminal', color: 'var(--color-text)' },
-  sql: { label: 'SQL', color: 'var(--pastel-sky-strong)' },
+  sql: { label: 'SQL', color: 'var(--color-primary)' },
   csharp: { label: 'C#', color: '#68217a' },
 };
 
