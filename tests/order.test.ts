@@ -56,7 +56,7 @@ describe('menu order cookie', () => {
     expect(parseMenuOrder('garbage')).toEqual(DEFAULT_MENU_ORDER);
     const repaired = parseMenuOrder('v1:data.data.nope|stats');
     expect(repaired.tracks).toEqual(['data', 'se', 'ai', 'devops', 'dataeng']);
-    expect(repaired.languages).toEqual(['lang']);
+    expect(repaired.languages).toEqual(['english', 'mandarin', 'malay', 'japanese']);
     expect(repaired.theory).toEqual(['stats', 'math']);
     expect(repaired.system).toEqual(DEFAULT_MENU_ORDER.system);
   });
@@ -101,10 +101,11 @@ describe('order requests', () => {
 });
 
 describe('closed menu groups cookie', () => {
-  it('starts with every group open and reads back what it wrote', async () => {
+  it('starts with System closed and reads back what it wrote', async () => {
     const { parseClosedGroups, serializeClosedGroups } = await import('@/shared/menu-order');
-    expect(parseClosedGroups(undefined)).toEqual([]);
-    expect(parseClosedGroups('nonsense')).toEqual([]);
+    expect(parseClosedGroups(undefined)).toEqual(['system']);
+    expect(parseClosedGroups('nonsense')).toEqual(['system']);
+    expect(parseClosedGroups(serializeClosedGroups([]))).toEqual([]);
     expect(parseClosedGroups(serializeClosedGroups(['system', 'theory']))).toEqual([
       'theory',
       'system',
@@ -117,6 +118,6 @@ describe('closed menu groups cookie', () => {
     expect(order.tracks[0]).toBe('ai');
     expect(order.theory).toEqual(['stats', 'math']);
     expect(order.system.slice(0, 2)).toEqual(['health', 'finance']);
-    expect(order.languages).toEqual(['lang']);
+    expect(order.languages).toEqual(['english', 'mandarin', 'malay', 'japanese']);
   });
 });

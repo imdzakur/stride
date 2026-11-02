@@ -16,8 +16,15 @@ export const GLYPHS = {
   // a small database feeding a pipe into a second one: moving data between stores
   dataeng:
     '<ellipse cx="6.5" cy="6" rx="3.5" ry="1.5"/><path d="M3 6V11C3 11.8 4.6 12.5 6.5 12.5S10 11.8 10 11V6"/><ellipse cx="17.5" cy="13" rx="3.5" ry="1.5"/><path d="M14 13V18C14 18.8 15.6 19.5 17.5 19.5S21 18.8 21 18V13"/><path d="M10 9H12.5C13.3 9 14 9.7 14 10.5V13"/>',
-  // a speech bubble with two lines of text: spoken and written languages
-  lang: '<path d="M4 5H20V15H11L7 19V15H4Z"/><path d="M8 9H16"/><path d="M8 12H13"/>',
+  // languages, each drawn as a letter or character of its own script
+  // a capital A: English
+  english: '<path d="M5 20L12 4L19 20"/><path d="M8.1 13H15.9"/>',
+  // the character for middle, a box crossed by one stroke: Mandarin
+  mandarin: '<rect x="5" y="7.5" width="14" height="8" rx="1"/><path d="M12 3.5V20.5"/>',
+  // a capital M: Malay
+  malay: '<path d="M5 19V5L12 13L19 5V19"/>',
+  // the character for sun or day, a tall box split in two: Japanese
+  japanese: '<rect x="6.5" y="3.5" width="11" height="17" rx="1"/><path d="M6.5 12H17.5"/>',
   // a bell curve with a mean line: distribution
   stats: '<path d="M3 19H21"/><path d="M3 19C8 19 9 5 12 5C15 5 16 19 21 19"/><path d="M12 5V19"/>',
 

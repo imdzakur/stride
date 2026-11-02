@@ -1,6 +1,6 @@
 import 'server-only';
 import { z } from 'zod';
-import { TRACKS } from '@/shared/tracks';
+import type { Track } from '@/shared/tracks';
 import { DatabaseError } from '../errors';
 
 export const itemRowSchema = z.object({
@@ -17,16 +17,17 @@ export const sectionRowSchema = z.object({
   items: z.array(itemRowSchema),
 });
 
-export const topicRowSchema = z.object({
+// The track is read as text and checked afterwards, so an unknown value never fails the tree.
+export const rawTopicRowSchema = z.object({
   id: z.string(),
-  track: z.enum(TRACKS),
+  track: z.string(),
   slug: z.string(),
   title: z.string(),
   sections: z.array(sectionRowSchema),
 });
 
 export type ItemRow = z.infer<typeof itemRowSchema>;
-export type TopicRow = z.infer<typeof topicRowSchema>;
+export type TopicRow = Omit<z.infer<typeof rawTopicRowSchema>, 'track'> & { track: Track };
 
 export const ITEM_COLUMNS = 'id,title,note,done';
 // One embedded select reads the whole tree in a single statement, so all counts share a snapshot.

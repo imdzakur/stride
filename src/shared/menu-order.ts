@@ -68,11 +68,13 @@ export function moveEntry<T>(list: readonly T[], index: number, delta: -1 | 1): 
   return next;
 }
 
-// Menu groups the person closed, kept in their own cookie. All groups start open.
+// Menu groups the person closed, kept in their own cookie. Without a saved choice, System
+// starts closed so the whole menu fits on screen; an empty saved list means all open.
 export const MENU_GROUPS_COOKIE_NAME = 'stride_menu_groups';
+export const DEFAULT_CLOSED_GROUPS: MenuGroup[] = ['system'];
 
 export function parseClosedGroups(value: string | undefined): MenuGroup[] {
-  if (!value?.startsWith('v1:')) return [];
+  if (!value?.startsWith('v1:')) return [...DEFAULT_CLOSED_GROUPS];
   const known = new Set<string>(MENU_GROUPS);
   return [...new Set(value.slice(3).split('.'))].filter((g): g is MenuGroup => known.has(g));
 }

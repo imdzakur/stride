@@ -25,6 +25,14 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Four language tracks (2 November 2026, eleventh revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| The Languages group holds four tracks: English, Mandarin, Malay, and Japanese, at `/english`, `/mandarin`, `/malay`, and `/japanese`. They replace the single Languages track. | Latest instruction; it named four languages. | Migration `0009_language_tracks.sql` adds the four enum values. `lang` from 0008 stays in the enum unused, since Postgres cannot drop enum values, and `/languages` no longer exists. |
+| Topics are read with the track as text and unknown tracks are skipped in code, not in the query. | A query naming an enum value the database lacks fails as a whole, so filtering there would break the app until 0009 runs. | Rows on `lang` are ignored; the app works before and after 0009. |
+| Without a saved choice, the System group starts closed. | With four languages open, the full menu no longer fit a 1000 px window. | An explicit choice, including all open, is kept as saved. |
+
 ## Menu groups that open and close (2 November 2026, tenth revision)
 
 | Decision | Reason | Impact |

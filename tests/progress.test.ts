@@ -76,7 +76,10 @@ describe('buildTree', () => {
       'dataeng',
       'math',
       'stats',
-      'lang',
+      'english',
+      'mandarin',
+      'malay',
+      'japanese',
     ]);
     expect(tree.tracks.every((t) => t.counts.total === 0 && t.counts.percent === 0)).toBe(true);
     expect(tree.overall).toEqual({ done: 0, total: 0, percent: 0 });

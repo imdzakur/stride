@@ -48,6 +48,13 @@ describe('area groups', () => {
       'Data Engineering',
     ]);
     expect(THEORY_TRACKS.map((t) => AREA_LABELS[t])).toEqual(['Mathematics', 'Statistics']);
+    const { LANGUAGE_TRACKS } = await import('@/shared/tracks');
+    expect(LANGUAGE_TRACKS.map((t) => AREA_LABELS[t])).toEqual([
+      'English',
+      'Mandarin',
+      'Malay',
+      'Japanese',
+    ]);
     expect(SYSTEM_AREAS).toHaveLength(5);
     expect(isTrack('devops')).toBe(true);
     expect(isTrack('finance')).toBe(false);

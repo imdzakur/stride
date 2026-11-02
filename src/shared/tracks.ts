@@ -2,7 +2,7 @@
 // practice tracks first, then theory and languages, each behind its own divider.
 export const PRACTICE_TRACKS = ['se', 'ai', 'data', 'devops', 'dataeng'] as const;
 export const THEORY_TRACKS = ['math', 'stats'] as const;
-export const LANGUAGE_TRACKS = ['lang'] as const;
+export const LANGUAGE_TRACKS = ['english', 'mandarin', 'malay', 'japanese'] as const;
 export const TRACKS = [...PRACTICE_TRACKS, ...THEORY_TRACKS, ...LANGUAGE_TRACKS] as const;
 
 // System areas are read-only system maps shipped with the app; they have no database rows.
@@ -18,9 +18,12 @@ export const AREA_LABELS: Record<Area, string> = {
   data: 'Data Science',
   devops: 'Development and Operations',
   dataeng: 'Data Engineering',
-  lang: 'Languages',
   math: 'Mathematics',
   stats: 'Statistics',
+  english: 'English',
+  mandarin: 'Mandarin',
+  malay: 'Malay',
+  japanese: 'Japanese',
   finance: 'Finance',
   logistics: 'Logistics',
   retail: 'Retail and Commerce',
@@ -43,9 +46,12 @@ export const AREA_SLUGS: Record<Area, string> = {
   data: 'data-science',
   devops: 'development-and-operations',
   dataeng: 'data-engineering',
-  lang: 'languages',
   math: 'mathematics',
   stats: 'statistics',
+  english: 'english',
+  mandarin: 'mandarin',
+  malay: 'malay',
+  japanese: 'japanese',
   finance: 'finance',
   logistics: 'logistics',
   retail: 'retail-and-commerce',
