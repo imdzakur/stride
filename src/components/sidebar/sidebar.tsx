@@ -4,11 +4,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppData } from '@/client/app-data';
 import type { GlyphName } from '@/glyphs/paths';
-import type { ShapeKind } from '@/shapes/shapes';
-import { AREA_LABELS, SYSTEM_AREAS, TRACKS, isTrack, type Area } from '@/shared/tracks';
+import {
+  AREA_LABELS,
+  PRACTICE_TRACKS,
+  areaHref,
+  SYSTEM_AREAS,
+  THEORY_TRACKS,
+  isTrack,
+  type Area,
+} from '@/shared/tracks';
 import { Wordmark } from '../glyph/wordmark';
-import { ShapeBadge } from '../shape/shape-badge';
-import { DASHBOARD_SHAPE, AREA_SHAPES } from '../shape/track-shapes';
+import { ToneGlyph } from '../glyph/tone-glyph';
 import { Skeleton } from '../skeleton/skeleton';
 import { LogoutButton } from './logout-button';
 import styles from './sidebar.module.css';
@@ -17,19 +23,18 @@ type NavLinkProps = {
   href: string;
   label: string;
   glyph: GlyphName;
-  shape: ShapeKind;
   active: boolean;
   tone: string;
   percent?: number | null;
   loading?: boolean;
 };
 
-// Only the shape of the active link turns; the glyph on it stays still.
-function NavLink({ href, label, glyph, shape, active, tone, percent, loading }: NavLinkProps) {
+// A menu row: the area glyph in its tone, the name, and the progress for tracks.
+function NavLink({ href, label, glyph, active, tone, percent, loading }: NavLinkProps) {
   return (
     <li data-tone={tone}>
       <Link href={href} className={styles.link} aria-current={active ? 'page' : undefined}>
-        <ShapeBadge shape={shape} glyph={glyph} size="menu" className={styles.badge} />
+        <ToneGlyph glyph={glyph} size="menu" />
         <span className={styles.label}>{label}</span>
         {percent !== undefined ? (
           <span className={styles.count}>
@@ -59,14 +64,13 @@ function AreaGroup({
       </h2>
       <ul className={styles.list}>
         {areas.map((area) => {
-          const href = `/${area}`;
+          const href = areaHref(area);
           return (
             <NavLink
               key={area}
               href={href}
               label={AREA_LABELS[area]}
               glyph={area}
-              shape={AREA_SHAPES[area]}
               tone={area}
               active={pathname === href || pathname.startsWith(`${href}/`)}
               // System maps are for reading only, so they carry no progress.
@@ -94,12 +98,13 @@ export function Sidebar() {
             href="/dashboard"
             label="Dashboard"
             glyph="dashboard"
-            shape={DASHBOARD_SHAPE}
             tone="neutral"
             active={pathname === '/dashboard'}
           />
         </ul>
-        <AreaGroup title="Tracks" areas={TRACKS} pathname={pathname} />
+        <AreaGroup title="Tracks" areas={PRACTICE_TRACKS} pathname={pathname} />
+        {/* Theory sits apart: it is studied differently from the practice tracks above. */}
+        <AreaGroup title="Theory" areas={THEORY_TRACKS} pathname={pathname} />
         <AreaGroup title="System" areas={SYSTEM_AREAS} pathname={pathname} />
       </nav>
       <LogoutButton />

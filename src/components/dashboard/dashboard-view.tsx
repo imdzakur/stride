@@ -2,12 +2,19 @@
 
 import Link from 'next/link';
 import { useAppData } from '@/client/app-data';
-import { AREA_LABELS, SYSTEM_AREAS, TRACKS, type Track } from '@/shared/tracks';
+import {
+  AREA_LABELS,
+  PRACTICE_TRACKS,
+  SYSTEM_AREAS,
+  THEORY_TRACKS,
+  type Track,
+  areaHref,
+} from '@/shared/tracks';
 import { systemMap } from '@/system-maps';
 import type { Counts } from '@/shared/types';
 import { ProgressBar } from '../progress/progress-bar';
-import { ShapeBadge } from '../shape/shape-badge';
-import { DASHBOARD_SHAPE, AREA_SHAPES } from '../shape/track-shapes';
+import { ToneGlyph } from '../glyph/tone-glyph';
+import { DASHBOARD_SHAPE } from '../shape/track-shapes';
 import { Shape } from '../shape/shape';
 import { LoadError } from '../shell/load-error';
 import pageStyles from '../shell/page.module.css';
@@ -58,8 +65,8 @@ function AreaCard({ title, areas }: AreaCardProps) {
           const node = trackNode(track);
           return (
             <li key={track} data-tone={track}>
-              <Link href={`/${track}`} className={styles.trackRow}>
-                <ShapeBadge shape={AREA_SHAPES[track]} glyph={track} size="menu" />
+              <Link href={areaHref(track)} className={styles.trackRow}>
+                <ToneGlyph glyph={track} size="menu" />
                 <span className={styles.trackName}>{AREA_LABELS[track]}</span>
                 <span className={styles.trackMeta}>
                   {node ? (
@@ -102,8 +109,8 @@ function SystemCard() {
           const map = systemMap(area);
           return (
             <li key={area} data-tone={area}>
-              <Link href={`/${area}`} className={`${styles.trackRow} ${styles.systemRow}`}>
-                <ShapeBadge shape={AREA_SHAPES[area]} glyph={area} size="menu" />
+              <Link href={areaHref(area)} className={`${styles.trackRow} ${styles.systemRow}`}>
+                <ToneGlyph glyph={area} size="menu" />
                 <span className={styles.trackName}>{AREA_LABELS[area]}</span>
                 <span className={styles.trackMeta}>{map ? 'System overview' : 'No map yet'}</span>
               </Link>
@@ -122,7 +129,7 @@ export function DashboardView({ initialLaterOpen }: { initialLaterOpen: boolean 
   return (
     <>
       <header className={pageStyles.header} data-tone="neutral">
-        <ShapeBadge shape={DASHBOARD_SHAPE} glyph="dashboard" />
+        <ToneGlyph glyph="dashboard" />
         <div className={pageStyles.headerText}>
           <p className={pageStyles.crumbs}>Overview</p>
           <h1 className={pageStyles.title}>Dashboard</h1>
@@ -137,7 +144,8 @@ export function DashboardView({ initialLaterOpen }: { initialLaterOpen: boolean 
         <div aria-busy={loading}>
           {loading ? <p className="sr-only">Loading data.</p> : null}
           <Overall counts={tree?.overall ?? null} />
-          <AreaCard title="Tracks" areas={TRACKS} />
+          <AreaCard title="Tracks" areas={PRACTICE_TRACKS} />
+          <AreaCard title="Theory" areas={THEORY_TRACKS} />
           <SystemCard />
         </div>
       )}

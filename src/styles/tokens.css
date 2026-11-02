@@ -41,6 +41,8 @@
   --pastel-sand-strong: #75582c;
   --pastel-periwinkle: #e3e6f7;
   --pastel-periwinkle-strong: #48508a;
+  --pastel-lime: #e4efd2;
+  --pastel-lime-strong: #4e6a1c;
 
   /* Deadline countdowns */
   --color-deadline-red: #a8383a;
@@ -104,8 +106,6 @@
   --panel-width: 15rem;
   --logo-height: 1.625rem;
   --icon-target: 2.25rem;
-  --shape-badge: 2.75rem;
-  --shape-menu: 1.5rem;
   --checkbox-size: 1.125rem;
   --glyph-small: 0.875rem;
   --glyph-medium: 1.125rem;
@@ -130,7 +130,6 @@
   --duration-normal: 200ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --duration-shape-spin: 12s;
 }
 
 /* Each area owns one pastel pair; components read --tone and --tone-container. */
@@ -147,6 +146,16 @@
 [data-tone='data'] {
   --tone: var(--pastel-mint-strong);
   --tone-container: var(--pastel-mint);
+}
+
+[data-tone='devops'] {
+  --tone: var(--pastel-lime-strong);
+  --tone-container: var(--pastel-lime);
+}
+
+[data-tone='dataeng'] {
+  --tone: var(--pastel-aqua-strong);
+  --tone-container: var(--pastel-aqua);
 }
 
 [data-tone='math'] {

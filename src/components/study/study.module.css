@@ -24,11 +24,14 @@
   text-decoration: underline;
 }
 
-.topicShape {
-  width: 1.75rem;
-  height: 1.75rem;
+/* A small tone dot marks a topic or section that has no icon of its own. */
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: 0 0.3125rem;
   flex-shrink: 0;
-  color: var(--tone-container, var(--color-surface-container-high));
+  border-radius: var(--radius-button);
+  background: var(--tone, var(--color-subtle));
 }
 
 .topicTitle {
@@ -206,18 +209,6 @@
   line-height: var(--text-meta-leading);
   color: var(--color-muted);
   white-space: pre-wrap;
-}
-
-/* A topic with a known icon (Java, Python, ...) shows it in place of the shape. */
-.topicIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  flex-shrink: 0;
-  border-radius: var(--radius-small);
-  background: var(--color-surface);
 }
 
 .titleWithIcon {

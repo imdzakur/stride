@@ -10,6 +10,12 @@ export const GLYPHS = {
   data: '<path d="M3 3V21"/><path d="M7 6H21"/><path d="M7 12H16"/><path d="M7 18H11"/>',
   // plus, minus, and a slash: operations
   math: '<path d="M4 9H10"/><path d="M7 6V12"/><path d="M14 17H20"/><path d="M20 4L4 20"/>',
+  // an infinity loop: build and run in one cycle
+  devops:
+    '<path d="M12 12C10 9 8.5 8 6.5 8C4.3 8 2.5 9.8 2.5 12S4.3 16 6.5 16C8.5 16 10 15 12 12C14 9 15.5 8 17.5 8C19.7 8 21.5 9.8 21.5 12S19.7 16 17.5 16C15.5 16 14 15 12 12Z"/>',
+  // a small database feeding a pipe into a second one: moving data between stores
+  dataeng:
+    '<ellipse cx="6.5" cy="6" rx="3.5" ry="1.5"/><path d="M3 6V11C3 11.8 4.6 12.5 6.5 12.5S10 11.8 10 11V6"/><ellipse cx="17.5" cy="13" rx="3.5" ry="1.5"/><path d="M14 13V18C14 18.8 15.6 19.5 17.5 19.5S21 18.8 21 18V13"/><path d="M10 9H12.5C13.3 9 14 9.7 14 10.5V13"/>',
   // a bell curve with a mean line: distribution
   stats: '<path d="M3 19H21"/><path d="M3 19C8 19 9 5 12 5C15 5 16 19 21 19"/><path d="M12 5V19"/>',
 

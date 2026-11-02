@@ -64,9 +64,10 @@ Content is created, edited, and deleted in the database. The app has no forms fo
 | Route | File |
 | --- | --- |
 | `/dashboard` | `(app)/dashboard/page.tsx` |
-| `/<track>` and `/<system area>` | `(app)/[track]/page.tsx`; System areas render their overview map |
-| `/<track>/<topic>` | `(app)/[track]/[topic]/page.tsx` |
-| `/<track>/<topic>/<section>` | `(app)/[track]/[topic]/[section]/page.tsx` |
+| `/<area slug>`, for example `/software-engineering` or `/finance` | `(app)/[area]/page.tsx`; System areas render their overview map |
+| `/<area slug>/<topic>` | `(app)/[area]/[topic]/page.tsx` |
+| `/<area slug>/<topic>/<section>` | `(app)/[area]/[topic]/[section]/page.tsx` |
+| Old `/se/...` style paths | Redirected by the proxy with 308 |
 | `GET /api/tree` | `api/tree/route.ts` |
 | `PATCH /api/items/:id` | `api/items/[id]/route.ts` |
 
@@ -81,7 +82,7 @@ Removed: task and step APIs, the composer, edit and archive, the `search` glyph,
 - The brand kit logo replaces the text wordmark; favicon and app icons come from the kit.
 - Menu rows are 40 px with 4 px gaps; hairlines divide Dashboard, Tracks, and System.
 - Glyphs sit on their own layer, exactly centered on the shape. Only gentle shapes are used at badge size.
-- On the active top-level menu link the shape turns slowly; the glyph stays still.
+- Icons have no background shape; the active menu row is marked by the tone container.
 
 ## Test results
 

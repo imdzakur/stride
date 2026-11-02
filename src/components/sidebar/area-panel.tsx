@@ -5,11 +5,9 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useAppData } from '@/client/app-data';
 import { PANEL_COOKIE_MAX_AGE, PANEL_COOKIE_NAME, serializePanelOpen } from '@/shared/panel';
-import { AREA_LABELS, isTrack } from '@/shared/tracks';
+import { AREA_LABELS, areaFromSlug, areaHref, isTrack } from '@/shared/tracks';
 import { Glyph } from '../glyph/glyph';
 import { TopicIcon, hasTopicIcon } from '../glyph/topic-icon';
-import { ShapeBadge } from '../shape/shape-badge';
-import { AREA_SHAPES } from '../shape/track-shapes';
 import { Skeleton } from '../skeleton/skeleton';
 import styles from './area-panel.module.css';
 
@@ -22,18 +20,24 @@ function savePanelOpen(open: boolean): void {
   }
 }
 
-// The submenu opens beside the sidebar: topics of the current track, each with its sections.
-// It can be closed to a slim rail; the main menu always stays open.
+// The submenu opens beside the sidebar: topics of the current track, each opening to its
+// sections. Only one topic is open at a time; on the track page all start closed. Closed,
+// the panel shrinks to a line in the track color along the edge of the main sidebar.
 export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
   const pathname = usePathname();
   const { status, trackNode } = useAppData();
   const [open, setOpen] = useState(initialOpen);
-  const [, area = ''] = pathname.split('/');
-  if (!isTrack(area)) return null;
+  // A topic picked by hand applies to the page it was picked on; a new page opens the
+  // topic that page belongs to, or none on the track page.
+  const [picked, setPicked] = useState<{ path: string; slug: string | null } | null>(null);
+  const [, areaSlug = '', activeSlug = null] = pathname.split('/');
+  const area = areaFromSlug(areaSlug);
+  if (!area || !isTrack(area)) return null;
 
   const node = trackNode(area);
-  const base = `/${area}`;
+  const base = areaHref(area);
   const label = AREA_LABELS[area];
+  const openSlug = picked && picked.path === pathname ? picked.slug : activeSlug;
 
   const toggle = () => {
     const next = !open;
@@ -41,27 +45,23 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
     savePanelOpen(next);
   };
 
+  const toggleTopic = (slug: string) => {
+    setPicked({ path: pathname, slug: openSlug === slug ? null : slug });
+  };
+
   if (!open) {
     return (
-      <aside
-        className={`glass ${styles.panel} ${styles.closed}`}
+      <button
+        type="button"
+        className={styles.edge}
         data-tone={area}
-        aria-label={`${label} topics, closed`}
+        onClick={toggle}
+        aria-expanded={false}
+        aria-label={`Open ${label} topics`}
+        title="Open topics"
       >
-        <button
-          type="button"
-          className={styles.toggle}
-          onClick={toggle}
-          aria-expanded={false}
-          aria-label={`Open ${label} topics`}
-          title="Open topics"
-        >
-          <Glyph name="chevron" size={16} />
-        </button>
-        <Link href={base} className={styles.railBadge} aria-label={label}>
-          <ShapeBadge shape={AREA_SHAPES[area]} glyph={area} size="menu" />
-        </Link>
-      </aside>
+        <span className={styles.edgeLine} aria-hidden="true" />
+      </button>
     );
   }
 
@@ -113,12 +113,17 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
           <ul className={styles.topics}>
             {node.topics.map((topic) => {
               const topicHref = `${base}/${topic.slug}`;
+              const expanded = openSlug === topic.slug;
+              const listId = `panel-topic-${topic.id}`;
               return (
                 <li key={topic.id} className={styles.topic}>
-                  <Link
-                    href={topicHref}
-                    className={styles.topicLink}
-                    aria-current={pathname === topicHref ? 'page' : undefined}
+                  <button
+                    type="button"
+                    className={styles.topicButton}
+                    aria-expanded={expanded}
+                    aria-controls={listId}
+                    data-active={activeSlug === topic.slug || undefined}
+                    onClick={() => toggleTopic(topic.slug)}
                   >
                     {hasTopicIcon(topic.title) ? (
                       <TopicIcon title={topic.title} size={16} />
@@ -127,9 +132,21 @@ export function AreaPanel({ initialOpen }: { initialOpen: boolean }) {
                     )}
                     <span className={styles.label}>{topic.title}</span>
                     <span className={styles.count}>{topic.counts.percent}%</span>
-                  </Link>
-                  {topic.sections.length > 0 ? (
-                    <ul className={styles.sections}>
+                    <span className={styles.chevron} aria-hidden="true">
+                      <Glyph name="chevron" size={16} />
+                    </span>
+                  </button>
+                  {expanded ? (
+                    <ul id={listId} className={styles.sections}>
+                      <li>
+                        <Link
+                          href={topicHref}
+                          className={styles.sectionLink}
+                          aria-current={pathname === topicHref ? 'page' : undefined}
+                        >
+                          <span className={styles.label}>All sections</span>
+                        </Link>
+                      </li>
                       {topic.sections.map((section) => {
                         const sectionHref = `${topicHref}/${section.slug}`;
                         return (

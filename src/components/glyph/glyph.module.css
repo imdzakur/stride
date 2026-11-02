@@ -18,3 +18,18 @@
   width: var(--glyph-large);
   height: var(--glyph-large);
 }
+
+/* An area glyph on its own, colored by the area tone. */
+.tone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--tone, var(--color-muted));
+}
+
+/* Page headers give the glyph the same footprint the title line expects. */
+.toneHeader {
+  width: 2rem;
+  height: 2rem;
+}

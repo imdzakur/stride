@@ -25,6 +25,18 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Tracks, plain icons, readable slugs, and the topic accordion (2 November 2026, sixth revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| Artificial Intelligence is now Intelligence System; Development and Operations (`devops`) and Data Engineering (`dataeng`) are new practice tracks. | Latest instruction. "Data Engineer" is named Data Engineering to match the other field names. | Migration `0006_more_tracks.sql` adds the two enum values; it is only needed before adding topics to them. |
+| Mathematics and Statistics sit in their own Theory group, divided from Tracks and System. | Theory is studied differently from the practice tracks. | `PRACTICE_TRACKS` and `THEORY_TRACKS`; the Dashboard has a Theory card as well. |
+| Icons have no shape or box behind them. | The shapes behind icons looked generated. | `ShapeBadge` and the spinning active shape are removed; `ToneGlyph` draws the glyph in the area tone. Shapes stay only around the countdown days and the overall percent. |
+| URLs use readable slugs: `/software-engineering`, `/intelligence-system`, `/development-and-operations`, and so on. | `/se` was unclear. | `AREA_SLUGS` maps keys to slugs; the database keeps the short keys. The proxy redirects old paths such as `/se/java` with 308. The route folder is now `[area]`. |
+| Topics in the panel open and close like an accordion: one at a time, all closed on the track page. | Latest instruction. | The open topic follows the page; a topic picked by hand stays open until the page changes. |
+| The closed panel is a line in the track tone along the sidebar edge instead of a separate rail. | The rail looked like an empty box sticking out. | The whole strip is the open button. |
+| Topic icons cover Java, Terminal, Git, PostgreSQL, Python, Maven, Spring, Docker, Go, TypeScript, Django, Express, C#, .NET, and SQL, in brand colors. | Latest instruction. | Brand marks from Simple Icons (CC0); Terminal, SQL, and C# are drawn in the same style. Matching uses the full title, then its first word. |
+
 ## System maps, closable panel, and topic icons (2 November 2026, fifth revision)
 
 | Decision | Reason | Impact |

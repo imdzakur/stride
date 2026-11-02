@@ -88,12 +88,6 @@
   text-align: center;
 }
 
-.emptyShape {
-  width: 3.5rem;
-  height: 3.5rem;
-  color: var(--tone-container, var(--color-surface-container-high));
-}
-
 .status {
   display: flex;
   align-items: center;

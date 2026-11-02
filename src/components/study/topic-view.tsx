@@ -1,13 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { AREA_LABELS, type Track } from '@/shared/tracks';
+import { AREA_LABELS, type Track, areaHref } from '@/shared/tracks';
 import { ProgressBar } from '../progress/progress-bar';
 import { ProgressSummary } from '../progress/progress-summary';
-import { Shape } from '../shape/shape';
 import { TopicIcon } from '../glyph/topic-icon';
-import { ShapeBadge } from '../shape/shape-badge';
-import { AREA_SHAPES, nestedShape } from '../shape/track-shapes';
+import { ToneGlyph } from '../glyph/tone-glyph';
 import pageStyles from '../shell/page.module.css';
 import { NotFoundCard, TreeState } from './tree-state';
 import styles from './study.module.css';
@@ -23,10 +21,10 @@ export function TopicView({ track, topicSlug }: { track: Track; topicSlug: strin
           return (
             <>
               <header className={pageStyles.header}>
-                <ShapeBadge shape={AREA_SHAPES[track]} glyph={track} />
+                <ToneGlyph glyph={track} />
                 <div className={pageStyles.headerText}>
                   <p className={pageStyles.crumbs}>
-                    <Link href={`/${track}`}>{AREA_LABELS[track]}</Link>
+                    <Link href={areaHref(track)}>{AREA_LABELS[track]}</Link>
                   </p>
                   <h1 className={`${pageStyles.title} ${styles.titleWithIcon}`}>
                     {topic ? <TopicIcon title={topic.title} size={24} /> : null}
@@ -42,13 +40,13 @@ export function TopicView({ track, topicSlug }: { track: Track; topicSlug: strin
                     <ProgressSummary label={`${topic.title} progress`} counts={topic.counts} />
                   </div>
                   <ul className={styles.sectionList}>
-                    {topic.sections.map((section, index) => (
+                    {topic.sections.map((section) => (
                       <li key={section.id}>
                         <Link
-                          href={`/${track}/${topic.slug}/${section.slug}`}
+                          href={`${areaHref(track)}/${topic.slug}/${section.slug}`}
                           className={`glass ${styles.sectionRow}`}
                         >
-                          <Shape kind={nestedShape(index + 1)} className={styles.topicShape} />
+                          <span className={styles.dot} aria-hidden="true" />
                           <span className={styles.sectionText}>
                             <span className={styles.topicTitle}>{section.title}</span>
                             <span className={styles.meta}>

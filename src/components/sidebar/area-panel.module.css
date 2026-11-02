@@ -13,14 +13,6 @@
   border-radius: var(--radius-card);
 }
 
-/* Closed: a slim rail with the open button and the track shape. */
-.closed {
-  width: auto;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-1);
-}
-
 .toggle {
   display: inline-flex;
   align-items: center;
@@ -45,11 +37,6 @@
 
 .toggleClose svg {
   transform: rotate(180deg);
-}
-
-.railBadge {
-  display: inline-flex;
-  border-radius: var(--radius-control);
 }
 
 .headRow {
@@ -114,7 +101,7 @@
   margin-top: var(--space-4);
 }
 
-.topicLink,
+.topicButton,
 .sectionLink {
   display: flex;
   align-items: center;
@@ -129,8 +116,28 @@
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 
-.topicLink {
+/* A topic row opens and closes its sections; it is a button, not a link. */
+.topicButton {
+  width: 100%;
+  border: 0;
+  background: transparent;
   font-weight: var(--weight-semibold);
+  text-align: left;
+  cursor: pointer;
+}
+
+.topicButton[data-active] {
+  background: var(--tone-container, var(--color-surface-container-high));
+}
+
+.chevron {
+  display: inline-flex;
+  color: var(--color-subtle);
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.topicButton[aria-expanded='true'] .chevron {
+  transform: rotate(90deg);
 }
 
 .sectionLink {
@@ -139,13 +146,12 @@
   font-weight: var(--weight-medium);
 }
 
-.topicLink:hover,
+.topicButton:hover,
 .sectionLink:hover {
   background: var(--color-hover);
   color: var(--color-text);
 }
 
-.topicLink[aria-current='page'],
 .sectionLink[aria-current='page'] {
   background: var(--tone-container, var(--color-surface-container-high));
   color: var(--color-text);
@@ -189,4 +195,35 @@
 .fraction {
   font-weight: var(--weight-medium);
   color: var(--color-muted);
+}
+
+/* Closed: a line in the track color along the right edge of the main sidebar, so the two
+   read as one piece. The whole strip is the button; the line grows a little on hover. */
+.edge {
+  position: sticky;
+  top: var(--sidebar-inset);
+  display: flex;
+  justify-content: center;
+  width: 0.875rem;
+  height: calc(100vh - 2 * var(--sidebar-inset));
+  margin: var(--sidebar-inset) 0 var(--sidebar-inset) -0.4375rem;
+  padding: var(--space-5) 0;
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.edgeLine {
+  width: 3px;
+  height: 100%;
+  border-radius: var(--radius-button);
+  background: var(--tone);
+  transition: width var(--duration-fast) var(--ease-standard);
+}
+
+.edge:hover .edgeLine,
+.edge:focus-visible .edgeLine {
+  width: 5px;
 }

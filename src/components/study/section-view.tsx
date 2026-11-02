@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { AREA_LABELS, type Track } from '@/shared/tracks';
+import { AREA_LABELS, type Track, areaHref } from '@/shared/tracks';
 import { ProgressSummary } from '../progress/progress-summary';
-import { ShapeBadge } from '../shape/shape-badge';
-import { AREA_SHAPES } from '../shape/track-shapes';
+import { ToneGlyph } from '../glyph/tone-glyph';
 import pageStyles from '../shell/page.module.css';
 import { Checklist } from './checklist';
 import { NotFoundCard, TreeState } from './tree-state';
@@ -23,14 +22,14 @@ export function SectionView({ track, topicSlug, sectionSlug }: SectionViewProps)
           return (
             <>
               <header className={pageStyles.header}>
-                <ShapeBadge shape={AREA_SHAPES[track]} glyph={track} />
+                <ToneGlyph glyph={track} />
                 <div className={pageStyles.headerText}>
                   <p className={pageStyles.crumbs}>
-                    <Link href={`/${track}`}>{AREA_LABELS[track]}</Link>
+                    <Link href={areaHref(track)}>{AREA_LABELS[track]}</Link>
                     {topic ? (
                       <>
                         <span aria-hidden="true">/</span>
-                        <Link href={`/${track}/${topic.slug}`}>{topic.title}</Link>
+                        <Link href={`${areaHref(track)}/${topic.slug}`}>{topic.title}</Link>
                       </>
                     ) : null}
                   </p>

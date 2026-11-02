@@ -68,7 +68,15 @@ describe('buildTree', () => {
 
   it('always lists every track in order, empty ones at zero', () => {
     const tree = buildTree([]);
-    expect(tree.tracks.map((t) => t.track)).toEqual(['se', 'ai', 'data', 'math', 'stats']);
+    expect(tree.tracks.map((t) => t.track)).toEqual([
+      'se',
+      'ai',
+      'data',
+      'devops',
+      'dataeng',
+      'math',
+      'stats',
+    ]);
     expect(tree.tracks.every((t) => t.counts.total === 0 && t.counts.percent === 0)).toBe(true);
     expect(tree.overall).toEqual({ done: 0, total: 0, percent: 0 });
   });

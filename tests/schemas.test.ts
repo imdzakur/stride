@@ -37,20 +37,38 @@ describe('route segments', () => {
 });
 
 describe('area groups', () => {
-  it('keeps five database tracks apart from the five System maps', async () => {
-    const { TRACKS, SYSTEM_AREAS, AREA_LABELS, isTrack, isSystemArea } =
+  it('lists practice tracks, theory tracks, and the five System maps', async () => {
+    const { PRACTICE_TRACKS, THEORY_TRACKS, SYSTEM_AREAS, AREA_LABELS, isTrack, isSystemArea } =
       await import('@/shared/tracks');
-    expect(TRACKS).toHaveLength(5);
-    expect(SYSTEM_AREAS.map((area) => AREA_LABELS[area])).toEqual([
-      'Finance',
-      'Logistics',
-      'Retail and Commerce',
-      'Health',
-      'Travel and Hospitality',
+    expect(PRACTICE_TRACKS.map((t) => AREA_LABELS[t])).toEqual([
+      'Software Engineering',
+      'Intelligence System',
+      'Data Science',
+      'Development and Operations',
+      'Data Engineering',
     ]);
-    expect(isTrack('se')).toBe(true);
+    expect(THEORY_TRACKS.map((t) => AREA_LABELS[t])).toEqual(['Mathematics', 'Statistics']);
+    expect(SYSTEM_AREAS).toHaveLength(5);
+    expect(isTrack('devops')).toBe(true);
     expect(isTrack('finance')).toBe(false);
     expect(isSystemArea('health')).toBe(true);
     expect(trackSchema.safeParse('finance').success).toBe(false);
+  });
+});
+
+describe('area slugs', () => {
+  it('gives every area a readable path and reads it back', async () => {
+    const { AREA_SLUGS, areaFromSlug, areaHref, areaFromLegacyKey } =
+      await import('@/shared/tracks');
+    expect(areaHref('se')).toBe('/software-engineering');
+    expect(areaHref('devops')).toBe('/development-and-operations');
+    for (const [area, slug] of Object.entries(AREA_SLUGS)) {
+      expect(isSlug(slug)).toBe(true);
+      expect(areaFromSlug(slug)).toBe(area);
+    }
+    expect(new Set(Object.values(AREA_SLUGS)).size).toBe(Object.keys(AREA_SLUGS).length);
+    expect(areaFromSlug('se')).toBeNull();
+    expect(areaFromLegacyKey('se')).toBe('se');
+    expect(areaFromLegacyKey('software-engineering')).toBeNull();
   });
 });

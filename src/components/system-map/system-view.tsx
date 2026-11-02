@@ -5,9 +5,7 @@ import { AREA_LABELS, type SystemArea } from '@/shared/tracks';
 import { systemMap } from '@/system-maps';
 import { layoutView } from '@/system-maps/layout';
 import type { MapView, SystemMap } from '@/system-maps/types';
-import { Shape } from '../shape/shape';
-import { ShapeBadge } from '../shape/shape-badge';
-import { AREA_SHAPES } from '../shape/track-shapes';
+import { ToneGlyph } from '../glyph/tone-glyph';
 import pageStyles from '../shell/page.module.css';
 import { MapCanvas, flowColor } from './map-canvas';
 import styles from './system-map.module.css';
@@ -141,7 +139,7 @@ export function SystemView({ area }: { area: SystemArea }) {
       data-layout={map ? 'wide' : undefined}
     >
       <header className={pageStyles.header}>
-        <ShapeBadge shape={AREA_SHAPES[area]} glyph={area} />
+        <ToneGlyph glyph={area} />
         <div className={pageStyles.headerText}>
           <p className={pageStyles.crumbs}>System overview</p>
           <h1 className={pageStyles.title}>{label}</h1>
@@ -152,7 +150,7 @@ export function SystemView({ area }: { area: SystemArea }) {
       ) : (
         <div className={`glass ${pageStyles.card}`}>
           <div className={pageStyles.empty}>
-            <Shape kind={AREA_SHAPES[area]} className={pageStyles.emptyShape} />
+            <ToneGlyph glyph={area} />
             <p>No map yet.</p>
           </div>
         </div>
