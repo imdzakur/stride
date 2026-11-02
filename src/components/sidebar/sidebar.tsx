@@ -65,15 +65,28 @@ function AreaGroup({
   editing: boolean;
 }) {
   const { status, trackNode } = useAppData();
-  const { order, move } = useMenuOrder();
+  const { order, move, closed, toggleGroup } = useMenuOrder();
   const areas = order[group];
+  const open = !closed.includes(group);
+  const listId = `menu-list-${group}`;
   const headingId = `menu-group-${title.toLowerCase()}`;
   return (
     <section className={styles.group} aria-labelledby={headingId}>
-      <h2 id={headingId} className={styles.groupLabel}>
-        {title}
+      <h2 id={headingId} className={styles.groupHeading}>
+        <button
+          type="button"
+          className={styles.groupLabel}
+          aria-expanded={open}
+          aria-controls={listId}
+          onClick={() => toggleGroup(group)}
+        >
+          {title}
+          <span className={styles.groupChevron} aria-hidden="true">
+            <Glyph name="chevron" size={16} />
+          </span>
+        </button>
       </h2>
-      <ul className={styles.list}>
+      <ul id={listId} className={styles.list} hidden={!open}>
         {areas.map((area, index) => {
           const href = areaHref(area);
           return (
@@ -129,20 +142,21 @@ export function Sidebar() {
         <AreaGroup title="Tracks" group="tracks" pathname={pathname} editing={editing} />
         {/* Theory sits apart: it is studied differently from the practice tracks above. */}
         <AreaGroup title="Theory" group="theory" pathname={pathname} editing={editing} />
+        <AreaGroup title="Languages" group="languages" pathname={pathname} editing={editing} />
         <AreaGroup title="System" group="system" pathname={pathname} editing={editing} />
       </nav>
-      <div className={styles.tools}>
+      <LogoutButton>
         <button
           type="button"
-          className={styles.footerButton}
+          className={styles.footerIcon}
           aria-pressed={editing}
+          aria-label={editing ? 'Done reordering' : 'Reorder menu'}
+          title={editing ? 'Done reordering' : 'Reorder menu'}
           onClick={() => setEditing((value) => !value)}
         >
           <Glyph name={editing ? 'check' : 'reorder'} size={20} />
-          {editing ? 'Done' : 'Reorder menu'}
         </button>
-      </div>
-      <LogoutButton />
+      </LogoutButton>
     </aside>
   );
 }

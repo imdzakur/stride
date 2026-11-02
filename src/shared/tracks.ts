@@ -1,8 +1,9 @@
 // Tracks hold topics, sections, and items in the database (enum track_key). The menu shows
-// practice tracks first, then the theory tracks behind their own divider.
-export const PRACTICE_TRACKS = ['se', 'ai', 'data', 'devops', 'dataeng', 'lang'] as const;
+// practice tracks first, then theory and languages, each behind its own divider.
+export const PRACTICE_TRACKS = ['se', 'ai', 'data', 'devops', 'dataeng'] as const;
 export const THEORY_TRACKS = ['math', 'stats'] as const;
-export const TRACKS = [...PRACTICE_TRACKS, ...THEORY_TRACKS] as const;
+export const LANGUAGE_TRACKS = ['lang'] as const;
+export const TRACKS = [...PRACTICE_TRACKS, ...THEORY_TRACKS, ...LANGUAGE_TRACKS] as const;
 
 // System areas are read-only system maps shipped with the app; they have no database rows.
 export const SYSTEM_AREAS = ['finance', 'logistics', 'retail', 'health', 'travel'] as const;

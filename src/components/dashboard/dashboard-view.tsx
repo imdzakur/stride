@@ -143,6 +143,7 @@ export function DashboardView({ initialLaterOpen }: { initialLaterOpen: boolean 
           <Overall counts={tree?.overall ?? null} />
           <AreaCard title="Tracks" areas={order.tracks} />
           <AreaCard title="Theory" areas={order.theory} />
+          <AreaCard title="Languages" areas={order.languages} />
           <SystemCard />
         </div>
       )}

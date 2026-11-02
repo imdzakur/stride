@@ -6,7 +6,12 @@ import { DeviceGate } from '@/components/device-gate/device-gate';
 import { AppShell } from '@/components/shell/app-shell';
 import { SESSION_COOKIE_NAME } from '@/server/auth/session';
 import { isValidSessionToken } from '@/server/auth/session-check';
-import { MENU_COOKIE_NAME, parseMenuOrder } from '@/shared/menu-order';
+import {
+  MENU_COOKIE_NAME,
+  MENU_GROUPS_COOKIE_NAME,
+  parseClosedGroups,
+  parseMenuOrder,
+} from '@/shared/menu-order';
 import {
   PANEL_COOKIE_NAME,
   PANEL_WIDTH_COOKIE_NAME,
@@ -28,6 +33,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
           initialPanelOpen={parsePanelOpen(cookieStore.get(PANEL_COOKIE_NAME)?.value)}
           initialPanelWidth={parsePanelWidth(cookieStore.get(PANEL_WIDTH_COOKIE_NAME)?.value)}
           initialMenuOrder={parseMenuOrder(cookieStore.get(MENU_COOKIE_NAME)?.value)}
+          initialClosedGroups={parseClosedGroups(cookieStore.get(MENU_GROUPS_COOKIE_NAME)?.value)}
         >
           {children}
         </AppShell>

@@ -45,6 +45,7 @@ describe('menu order cookie', () => {
     const order = {
       tracks: moveEntry(DEFAULT_MENU_ORDER.tracks, 4, -1),
       theory: moveEntry(DEFAULT_MENU_ORDER.theory, 1, -1),
+      languages: [...DEFAULT_MENU_ORDER.languages],
       system: moveEntry(DEFAULT_MENU_ORDER.system, 0, 1),
     };
     expect(parseMenuOrder(serializeMenuOrder(order))).toEqual(order);
@@ -54,7 +55,8 @@ describe('menu order cookie', () => {
     expect(parseMenuOrder(undefined)).toEqual(DEFAULT_MENU_ORDER);
     expect(parseMenuOrder('garbage')).toEqual(DEFAULT_MENU_ORDER);
     const repaired = parseMenuOrder('v1:data.data.nope|stats');
-    expect(repaired.tracks).toEqual(['data', 'se', 'ai', 'devops', 'dataeng', 'lang']);
+    expect(repaired.tracks).toEqual(['data', 'se', 'ai', 'devops', 'dataeng']);
+    expect(repaired.languages).toEqual(['lang']);
     expect(repaired.theory).toEqual(['stats', 'math']);
     expect(repaired.system).toEqual(DEFAULT_MENU_ORDER.system);
   });
@@ -95,5 +97,26 @@ describe('order requests', () => {
     expect(topicOrderSchema.safeParse({ track: 'finance', ids: [id] }).success).toBe(false);
     expect(topicOrderSchema.safeParse({ track: 'se', ids: ['x'] }).success).toBe(false);
     expect(sectionOrderSchema.safeParse({ topicId: id, ids: [], title: 'x' }).success).toBe(false);
+  });
+});
+
+describe('closed menu groups cookie', () => {
+  it('starts with every group open and reads back what it wrote', async () => {
+    const { parseClosedGroups, serializeClosedGroups } = await import('@/shared/menu-order');
+    expect(parseClosedGroups(undefined)).toEqual([]);
+    expect(parseClosedGroups('nonsense')).toEqual([]);
+    expect(parseClosedGroups(serializeClosedGroups(['system', 'theory']))).toEqual([
+      'theory',
+      'system',
+    ]);
+    expect(parseClosedGroups('v1:system.nope.system')).toEqual(['system']);
+  });
+
+  it('keeps an older three-group order and adds the languages group', () => {
+    const order = parseMenuOrder('v1:ai.se.data.devops.dataeng|stats.math|health.finance');
+    expect(order.tracks[0]).toBe('ai');
+    expect(order.theory).toEqual(['stats', 'math']);
+    expect(order.system.slice(0, 2)).toEqual(['health', 'finance']);
+    expect(order.languages).toEqual(['lang']);
   });
 });

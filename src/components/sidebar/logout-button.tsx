@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { apiRequest, errorMessage } from '@/client/api';
 import { Glyph } from '../glyph/glyph';
 import { ConfirmDialog } from '../ui/confirm-dialog';
 import styles from './sidebar.module.css';
 
-export function LogoutButton() {
+// Extra controls, such as the reorder switch, sit beside Sign out in the same row.
+export function LogoutButton({ children }: { children?: ReactNode }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +31,7 @@ export function LogoutButton() {
         <Glyph name="logout" size={20} />
         <span className={styles.label}>Sign out</span>
       </button>
+      {children}
       <ConfirmDialog
         open={confirmOpen}
         icon="logout"

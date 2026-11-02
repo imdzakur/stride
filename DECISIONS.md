@@ -25,6 +25,15 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 | Countdowns tick every second through `useSyncExternalStore` aligned to whole seconds. | Latest instruction to add seconds. | Only the countdown cards re-render each second. |
 | `RULES.md`, `DESIGN-1.md`, `DESIGN-2.md`, and `docs/GIT-SSH.md` are gitignored. | They are internal planning or personal notes. | They stay on the laptop only. Delete the lines in `.gitignore` to publish them. |
 
+## Menu groups that open and close (2 November 2026, tenth revision)
+
+| Decision | Reason | Impact |
+| --- | --- | --- |
+| Languages is its own menu group, like System, between Theory and System; the Dashboard has a Languages card. | Latest instruction. | `LANGUAGE_TRACKS`; the menu order cookie gains a fourth segment, so saved orders keep working. |
+| Every menu group (Tracks, Theory, Languages, System) opens and closes from its label; all start open and the choice is kept in the `stride_menu_groups` cookie, read on the server. | The sidebar should not scroll. | With every group open the sidebar fits a 1000 px high window; closing groups frees more room. |
+| The sidebar is 304 px wide instead of 256. | Development and Operations wrapped to two lines. | Every name fits on one line outside reorder mode. |
+| The reorder switch is an icon beside Sign out. | Saves a full row of height. | Same behavior; it stays tinted while reorder mode is on. |
+
 ## Languages track (2 November 2026, ninth revision)
 
 | Decision | Reason | Impact |

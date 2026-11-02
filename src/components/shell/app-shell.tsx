@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MenuOrderProvider } from '@/client/menu-order';
-import type { MenuOrder } from '@/shared/menu-order';
+import type { MenuGroup, MenuOrder } from '@/shared/menu-order';
 import { AreaPanel } from '../sidebar/area-panel';
 import { Sidebar } from '../sidebar/sidebar';
 import styles from './app-shell.module.css';
@@ -10,14 +10,16 @@ export function AppShell({
   initialPanelOpen,
   initialPanelWidth,
   initialMenuOrder,
+  initialClosedGroups,
 }: {
   children: ReactNode;
   initialPanelOpen: boolean;
   initialPanelWidth: number;
   initialMenuOrder: MenuOrder;
+  initialClosedGroups: MenuGroup[];
 }) {
   return (
-    <MenuOrderProvider initial={initialMenuOrder}>
+    <MenuOrderProvider initial={initialMenuOrder} initialClosed={initialClosedGroups}>
       <div className={styles.shell}>
         <Sidebar />
         <AreaPanel initialOpen={initialPanelOpen} initialWidth={initialPanelWidth} />
