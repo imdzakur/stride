@@ -1,0 +1,64 @@
+/* Static: no shimmer, pulse, or gradient. */
+.block {
+  display: block;
+  background: var(--color-skeleton);
+  border-radius: var(--radius-skeleton);
+  pointer-events: none;
+}
+
+.title {
+  height: var(--text-page-size);
+  width: 30%;
+}
+
+.line {
+  height: var(--text-body-size);
+}
+
+.meta {
+  height: var(--text-meta-size);
+}
+
+.count {
+  display: inline-block;
+  height: var(--text-meta-size);
+  width: 2rem;
+}
+
+.cell {
+  display: inline-block;
+  height: var(--text-body-size);
+  width: 2rem;
+}
+
+.bar {
+  height: var(--progress-height);
+  width: 100%;
+  border-radius: var(--radius-progress);
+}
+
+.taskRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+}
+
+.taskBox {
+  width: var(--glyph-medium);
+  height: var(--glyph-medium);
+  flex-shrink: 0;
+}
+
+.taskText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}

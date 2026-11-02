@@ -1,0 +1,227 @@
+.topicGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.topicCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+}
+
+.topicHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.topicHead:hover .topicTitle {
+  text-decoration: underline;
+}
+
+.topicShape {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  color: var(--tone-container, var(--color-surface-container-high));
+}
+
+.topicTitle {
+  flex: 1;
+  min-width: 0;
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.percent {
+  font-size: var(--text-label-size);
+  font-weight: var(--weight-semibold);
+  color: var(--tone, var(--color-muted));
+  font-variant-numeric: tabular-nums;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 1.75rem;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-radius: var(--radius-button);
+  background: var(--color-surface-container);
+  color: var(--color-text);
+  font-size: var(--text-label-size);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.chip:hover {
+  background: var(--tone-container, var(--color-surface-container-high));
+}
+
+.chipCount {
+  font-size: var(--text-meta-size);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sectionList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.sectionRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 9rem 2.75rem;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.sectionRow:hover {
+  border-color: var(--tone, var(--color-control-border));
+}
+
+.sectionText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.meta {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.rowBar {
+  display: block;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+}
+
+.item + .item {
+  border-top: var(--border-width) solid var(--color-line);
+}
+
+.check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.check:hover {
+  background: var(--color-hover);
+}
+
+/* The native checkbox stays in place for keyboard and screen readers, drawn over by .mark. */
+.box {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-1);
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-control-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  color: transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    border-radius var(--duration-normal) var(--ease-emphasized);
+}
+
+.box:focus-visible + .mark {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Ticked: the square rounds into a soft pastel circle. */
+.box:checked + .mark {
+  border-color: var(--tone, var(--color-primary));
+  border-radius: var(--radius-button);
+  background: var(--tone, var(--color-primary));
+  color: var(--color-surface);
+}
+
+.box:disabled + .mark {
+  opacity: 0.6;
+}
+
+.itemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  overflow-wrap: anywhere;
+}
+
+.item[data-done='true'] .itemTitle {
+  color: var(--color-muted);
+}
+
+.note {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  color: var(--color-muted);
+  white-space: pre-wrap;
+}
+
+/* A topic with a known icon (Java, Python, ...) shows it in place of the shape. */
+.topicIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+}
+
+.titleWithIcon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}

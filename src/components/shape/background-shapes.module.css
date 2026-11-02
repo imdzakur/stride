@@ -1,0 +1,45 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  opacity: 0.55;
+}
+
+.one {
+  top: -16vh;
+  right: -10vw;
+  width: 40vw;
+  height: 40vw;
+  color: var(--pastel-sky);
+  animation: drift 180s linear infinite;
+}
+
+.two {
+  bottom: -20vh;
+  left: 6vw;
+  width: 30vw;
+  height: 30vw;
+  color: var(--pastel-rose);
+}
+
+.three {
+  top: 42vh;
+  right: 8vw;
+  width: 14vw;
+  height: 14vw;
+  color: var(--pastel-butter);
+  animation: drift 240s linear infinite reverse;
+}
+
+/* Very slow rotation; it reads as stillness and stops under reduced motion. */
+@keyframes drift {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,135 @@
+/* A floating panel, inset from the window edge, so the boundary with the page is clear. */
+.sidebar {
+  position: sticky;
+  top: var(--sidebar-inset);
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: calc(100vh - 2 * var(--sidebar-inset));
+  margin: var(--sidebar-inset) 0 var(--sidebar-inset) var(--sidebar-inset);
+  flex-shrink: 0;
+  padding: var(--space-5) var(--space-3) var(--space-3);
+  overflow-y: auto;
+  border-radius: var(--radius-card);
+}
+
+.logoLink {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+}
+
+.nav {
+  margin-top: var(--space-6);
+  flex: 1;
+}
+
+/* Each group starts with a hairline, which also separates Tracks from System. */
+.group {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-line);
+}
+
+.groupLabel {
+  margin: 0 var(--space-3) var(--space-2);
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--color-subtle);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--menu-row-gap);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--menu-row-min-height);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--color-muted);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.link:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.link[aria-current='page'] {
+  background: var(--tone-container, var(--color-surface-container-high));
+  color: var(--color-text);
+  font-weight: var(--weight-semibold);
+}
+
+/* Active link: the shape turns slowly; the glyph layer is separate and stays still. */
+.link[aria-current='page'] .badge > svg {
+  color: var(--color-surface);
+  animation: shape-spin var(--duration-shape-spin) linear infinite;
+}
+
+@keyframes shape-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.count {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--tone, var(--color-muted));
+  font-variant-numeric: tabular-nums;
+}
+
+.count:empty {
+  display: none;
+}
+
+.footer {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: var(--border-width) solid var(--color-line);
+}
+
+.footerButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--menu-row-min-height);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: var(--text-label-size);
+  font-weight: var(--weight-medium);
+  text-align: left;
+  cursor: pointer;
+}
+
+.footerButton:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}

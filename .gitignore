@@ -1,0 +1,59 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next.js and build output
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+*.tsbuildinfo
+
+# test and tool caches
+coverage/
+.vitest/
+.eslintcache
+.turbo/
+.cache/
+
+# env: only .env.example may be committed
+.env*
+!.env.example
+
+# vercel and supabase local state
+.vercel/
+supabase/.temp/
+supabase/.branches/
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editors, OS, and assistant tooling
+.vscode/
+.idea/
+.claude/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# credentials, keys, and dumps must never enter the repo
+*.pem
+*.key
+*.p12
+*.dump
+*.sql.gz
+*.backup
+
+# internal planning and personal notes stay local
+RULES.md
+DESIGN-1.md
+DESIGN-2.md
+docs/GIT-SSH.md
+FINANCE-MAP-RULES.md
+LOGISTICS-MAP-RULES.md

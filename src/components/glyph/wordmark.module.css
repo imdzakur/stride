@@ -1,0 +1,6 @@
+/* Height drives the size; width follows the logo's own proportions. */
+.logo {
+  display: block;
+  width: auto;
+  height: var(--logo-height);
+}

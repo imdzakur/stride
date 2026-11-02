@@ -1,0 +1,46 @@
+.track {
+  width: 100%;
+  height: var(--progress-height);
+  background: var(--color-progress-track);
+  border-radius: var(--radius-progress);
+  overflow: hidden;
+}
+
+.inline {
+  width: var(--progress-inline-width);
+}
+
+/* The fill takes the area's pastel tone and grows smoothly after a tick. */
+.fill {
+  height: 100%;
+  border-radius: var(--radius-progress);
+  background: var(--tone, var(--color-progress-fill));
+  transition: width var(--duration-normal) var(--ease-emphasized);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summaryText {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.summaryLabel {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--weight-semibold);
+}
+
+.numbers {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--tone, var(--color-muted));
+  font-variant-numeric: tabular-nums;
+}

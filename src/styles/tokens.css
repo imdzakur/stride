@@ -1,0 +1,191 @@
+/* Copied from DESIGN-2.md (active design). Components only read these variables. */
+:root {
+  /* Base: warm paper with soft ink text */
+  --color-bg: #f6f4f0;
+  --color-surface: #fffdf9;
+  --color-surface-container: #f1eee8;
+  --color-surface-container-high: #e9e5dd;
+  --color-text: #2b2a33;
+  --color-muted: #615e6c;
+  --color-subtle: #8a8796;
+  --color-line: rgba(43, 42, 51, 0.08);
+  --color-control-border: #c9c4bb;
+  --color-error: #b0413e;
+
+  --color-primary: #34323f;
+  --color-primary-hover: #4a4757;
+  --color-primary-pressed: #5d5a6b;
+  --color-on-primary: #fffdf9;
+  --color-hover: rgba(43, 42, 51, 0.05);
+  --color-pressed: rgba(43, 42, 51, 0.09);
+  --color-focus: #34323f;
+
+  --color-progress-track: rgba(43, 42, 51, 0.08);
+  --color-progress-fill: #34323f;
+  --color-skeleton: rgba(43, 42, 51, 0.07);
+
+  /* Soft pastel per area: a light container for shapes and a deeper tone for text and bars */
+  --pastel-sky: #dcebfa;
+  --pastel-sky-strong: #33689f;
+  --pastel-rose: #f8dfe7;
+  --pastel-rose-strong: #a34868;
+  --pastel-mint: #d6efe3;
+  --pastel-mint-strong: #2c7656;
+  --pastel-butter: #f9ebc5;
+  --pastel-butter-strong: #84600f;
+  --pastel-peach: #fbe1d3;
+  --pastel-peach-strong: #9c4f35;
+  --pastel-aqua: #d4eeee;
+  --pastel-aqua-strong: #2b6e6f;
+  --pastel-sand: #efe6d6;
+  --pastel-sand-strong: #75582c;
+  --pastel-periwinkle: #e3e6f7;
+  --pastel-periwinkle-strong: #48508a;
+
+  /* Deadline countdowns */
+  --color-deadline-red: #a8383a;
+  --color-deadline-red-container: #f9dddd;
+  --color-deadline-orange: #9c5410;
+  --color-deadline-orange-container: #fce7cf;
+
+  /* Surfaces: a light frosted card, kept simple */
+  --glass-fill: rgba(255, 253, 249, 0.82);
+  --glass-fill-strong: rgba(255, 253, 249, 0.96);
+  --glass-border: rgba(43, 42, 51, 0.07);
+  --glass-blur: 14px;
+  --glass-saturate: 140%;
+  --glass-shadow: 0 1px 2px rgba(43, 42, 51, 0.04);
+  --dialog-shadow: 0 18px 48px rgba(43, 42, 51, 0.16);
+  --backdrop-tint: rgba(43, 42, 51, 0.2);
+
+  /* Typography */
+  --font-sans: var(--font-google-sans-flex), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --text-page-size: 1.75rem;
+  --text-page-leading: 1.15;
+  --text-section-size: 1.0625rem;
+  --text-section-leading: 1.4;
+  --text-body-size: 0.9375rem;
+  --text-body-leading: 1.5;
+  --text-label-size: 0.8125rem;
+  --text-label-leading: 1.45;
+  --text-meta-size: 0.75rem;
+  --text-meta-leading: 1.5;
+  --text-wordmark-size: 1.0625rem;
+  --text-wordmark-leading: 1.2;
+  --tracking-tight: -0.015em;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.75rem;
+  --space-7: 2.5rem;
+  --space-8: 3.5rem;
+
+  /* Size */
+  --sidebar-width: 16rem;
+  --sidebar-inset: 0.625rem;
+  --content-max-width: 54rem;
+  --login-max-width: 23rem;
+  --dialog-max-width: 25rem;
+  --reading-max-width: 65ch;
+  --page-padding-compact: 1.75rem;
+  --page-padding-wide: 2.5rem;
+  --control-height: 2.5rem;
+  --menu-row-min-height: 2.5rem;
+  --menu-row-gap: 0.25rem;
+  --panel-width: 15rem;
+  --logo-height: 1.625rem;
+  --icon-target: 2.25rem;
+  --shape-badge: 2.75rem;
+  --shape-menu: 1.5rem;
+  --checkbox-size: 1.125rem;
+  --glyph-small: 0.875rem;
+  --glyph-medium: 1.125rem;
+  --glyph-large: 1.375rem;
+  --progress-inline-width: 7rem;
+
+  /* Shape */
+  --radius-small: 0.3125rem;
+  --radius-control: 0.625rem;
+  --radius-card: 1rem;
+  --radius-dialog: 1.25rem;
+  --radius-button: 999px;
+  --radius-progress: 999px;
+  --radius-skeleton: 0.375rem;
+  --border-width: 1px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --progress-height: 6px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --duration-shape-spin: 12s;
+}
+
+/* Each area owns one pastel pair; components read --tone and --tone-container. */
+[data-tone='se'] {
+  --tone: var(--pastel-sky-strong);
+  --tone-container: var(--pastel-sky);
+}
+
+[data-tone='ai'] {
+  --tone: var(--pastel-rose-strong);
+  --tone-container: var(--pastel-rose);
+}
+
+[data-tone='data'] {
+  --tone: var(--pastel-mint-strong);
+  --tone-container: var(--pastel-mint);
+}
+
+[data-tone='math'] {
+  --tone: var(--pastel-butter-strong);
+  --tone-container: var(--pastel-butter);
+}
+
+[data-tone='stats'] {
+  --tone: var(--pastel-peach-strong);
+  --tone-container: var(--pastel-peach);
+}
+
+/* System areas reuse the family and add two calm pairs of their own. */
+[data-tone='finance'] {
+  --tone: var(--pastel-aqua-strong);
+  --tone-container: var(--pastel-aqua);
+}
+
+[data-tone='logistics'] {
+  --tone: var(--pastel-sand-strong);
+  --tone-container: var(--pastel-sand);
+}
+
+[data-tone='retail'] {
+  --tone: var(--pastel-rose-strong);
+  --tone-container: var(--pastel-rose);
+}
+
+[data-tone='health'] {
+  --tone: var(--pastel-mint-strong);
+  --tone-container: var(--pastel-mint);
+}
+
+[data-tone='travel'] {
+  --tone: var(--pastel-sky-strong);
+  --tone-container: var(--pastel-sky);
+}
+
+[data-tone='neutral'] {
+  --tone: var(--pastel-periwinkle-strong);
+  --tone-container: var(--pastel-periwinkle);
+}

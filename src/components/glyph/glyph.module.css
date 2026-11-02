@@ -1,0 +1,20 @@
+.glyph {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.small {
+  width: var(--glyph-small);
+  height: var(--glyph-small);
+}
+
+.medium {
+  width: var(--glyph-medium);
+  height: var(--glyph-medium);
+}
+
+.large {
+  width: var(--glyph-large);
+  height: var(--glyph-large);
+}

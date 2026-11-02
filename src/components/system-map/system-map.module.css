@@ -1,0 +1,260 @@
+/* The map page fills the main area so the canvas can use the screen without page scrolling. */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: calc(100vh - 2 * var(--main-padding));
+  min-height: 34rem;
+}
+
+.frame {
+  position: relative;
+  flex: 1;
+  min-height: 18rem;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.frame:active {
+  cursor: grabbing;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-sans);
+}
+
+.layerBand {
+  fill: rgba(43, 42, 51, 0.025);
+}
+
+.layerLabel {
+  fill: var(--color-subtle);
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  text-anchor: end;
+}
+
+.edge {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.edge[data-active] {
+  stroke-width: 2.2;
+}
+
+.edge[data-dimmed],
+.edgeLabel[data-dimmed] {
+  opacity: 0.14;
+}
+
+.edgeLabel rect {
+  fill: var(--color-surface);
+  stroke: var(--color-line);
+}
+
+.edgeLabel text {
+  fill: var(--color-muted);
+  font-size: 10.5px;
+  font-weight: var(--weight-medium);
+  text-anchor: middle;
+}
+
+.node {
+  cursor: pointer;
+  outline: none;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.node[data-dimmed] {
+  opacity: 0.3;
+}
+
+.box {
+  stroke-width: 1;
+  stroke-opacity: 0.35;
+}
+
+.node:hover .box {
+  stroke-opacity: 0.8;
+}
+
+.node[data-selected] .box {
+  stroke: var(--color-text) !important;
+  stroke-opacity: 1;
+  stroke-width: 2;
+}
+
+.node:focus-visible .box {
+  stroke: var(--color-focus) !important;
+  stroke-opacity: 1;
+  stroke-width: 2.5;
+}
+
+.boxTitle {
+  fill: var(--color-text);
+  font-size: 12.5px;
+  font-weight: var(--weight-semibold);
+}
+
+.boxRef {
+  font-weight: var(--weight-bold);
+}
+
+.boxSubtitle {
+  fill: var(--color-muted);
+  font-size: 10.5px;
+}
+
+/* Canvas controls stay in the frame corner, reachable without scrolling the diagram. */
+.controls {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--radius-button);
+  cursor: default;
+}
+
+.zoom {
+  min-width: 2.75rem;
+  color: var(--color-muted);
+  font-size: var(--text-meta-size);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.fit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--icon-target);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-button);
+  background: transparent;
+  font-size: var(--text-label-size);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.fit:hover {
+  background: var(--color-hover);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+  gap: var(--space-4);
+  height: 6.5rem;
+  flex-shrink: 0;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: var(--space-1) var(--space-4);
+  overflow-y: auto;
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  color: var(--color-muted);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.legendLine {
+  width: 1.75rem;
+  height: 0.625rem;
+  fill: none;
+  stroke-width: 1.6;
+}
+
+.legendBox {
+  width: 0.875rem;
+  height: 0.625rem;
+  border: var(--border-width) solid;
+  border-radius: 3px;
+}
+
+.hint {
+  color: var(--color-subtle);
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+}
+
+.selection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-height: 0;
+  overflow-y: auto;
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+}
+
+.selectionHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+}
+
+.selectionTitle {
+  font-size: var(--text-label-size);
+  font-weight: var(--weight-semibold);
+}
+
+.selectionMeta {
+  color: var(--color-subtle);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-muted);
+}
+
+.linkDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.linkSource {
+  color: var(--color-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1100px) {
+  .footer {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    max-height: 10rem;
+  }
+}

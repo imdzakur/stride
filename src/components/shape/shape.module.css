@@ -1,0 +1,38 @@
+.badge {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.menu {
+  width: var(--shape-menu);
+  height: var(--shape-menu);
+}
+
+.large {
+  width: var(--shape-badge);
+  height: var(--shape-badge);
+}
+
+.badgeShape {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--tone-container, var(--color-surface-container-high));
+}
+
+/* The glyph sits on its own layer, centered exactly on the shape's middle. */
+.badgeGlyph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tone, var(--color-text));
+}
+
+.badgeGlyph svg {
+  display: block;
+}

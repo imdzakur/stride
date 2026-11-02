@@ -1,0 +1,192 @@
+/* Second column beside the sidebar; same card style, its own scroll. */
+.panel {
+  position: sticky;
+  top: var(--sidebar-inset);
+  display: flex;
+  flex-direction: column;
+  width: var(--panel-width);
+  height: calc(100vh - 2 * var(--sidebar-inset));
+  margin: var(--sidebar-inset) 0 var(--sidebar-inset) var(--space-2);
+  flex-shrink: 0;
+  padding: var(--space-5) var(--space-3) var(--space-3);
+  overflow-y: auto;
+  border-radius: var(--radius-card);
+}
+
+/* Closed: a slim rail with the open button and the track shape. */
+.closed {
+  width: auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-1);
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.toggle:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.toggleClose svg {
+  transform: rotate(180deg);
+}
+
+.railBadge {
+  display: inline-flex;
+  border-radius: var(--radius-control);
+}
+
+.headRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-line);
+}
+
+.eyebrow {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--tone, var(--color-subtle));
+}
+
+.title {
+  font-size: var(--text-section-size);
+  line-height: var(--text-section-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-3);
+}
+
+.empty {
+  padding: var(--space-4) var(--space-3);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  color: var(--color-muted);
+}
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.topicLink,
+.sectionLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--menu-row-min-height);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.topicLink {
+  font-weight: var(--weight-semibold);
+}
+
+.sectionLink {
+  min-height: 2.25rem;
+  color: var(--color-muted);
+  font-weight: var(--weight-medium);
+}
+
+.topicLink:hover,
+.sectionLink:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.topicLink[aria-current='page'],
+.sectionLink[aria-current='page'] {
+  background: var(--tone-container, var(--color-surface-container-high));
+  color: var(--color-text);
+  font-weight: var(--weight-semibold);
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 0 calc(var(--space-3) + 0.25rem);
+  padding-left: var(--space-2);
+  border-left: 2px solid var(--tone-container, var(--color-line));
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-button);
+  background: var(--tone, var(--color-subtle));
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.count,
+.fraction {
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--weight-semibold);
+  color: var(--tone, var(--color-muted));
+  font-variant-numeric: tabular-nums;
+}
+
+.fraction {
+  font-weight: var(--weight-medium);
+  color: var(--color-muted);
+}
