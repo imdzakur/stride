@@ -42,7 +42,7 @@ describe('area groups', () => {
       await import('@/shared/tracks');
     expect(PRACTICE_TRACKS.map((t) => AREA_LABELS[t])).toEqual([
       'Software Engineering',
-      'Intelligence System',
+      'Intelligent System',
       'Data Science',
       'Development and Operations',
       'Data Engineering',
@@ -77,5 +77,7 @@ describe('area slugs', () => {
     expect(areaFromSlug('se')).toBeNull();
     expect(areaFromLegacyKey('se')).toBe('se');
     expect(areaFromLegacyKey('software-engineering')).toBeNull();
+    expect(areaHref('ai')).toBe('/intelligent-system');
+    expect(areaFromLegacyKey('intelligence-system')).toBe('ai');
   });
 });

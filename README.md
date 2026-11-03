@@ -1,6 +1,6 @@
 # Stride
 
-A study tracker: five practice tracks (Software Engineering, Intelligence System, Data Science, Development and Operations, Data Engineering), two theory tracks (Mathematics, Statistics), and four languages (English, Mandarin, Malay, Japanese), each holding topics, sections, and items to tick, plus five System areas (Finance, Logistics, Retail and Commerce, Health, Travel and Hospitality) that show read-only system maps. Track content is managed in the database. Single user, laptop or desktop only.
+A study tracker: five practice tracks (Software Engineering, Intelligent System, Data Science, Development and Operations, Data Engineering), two theory tracks (Mathematics, Statistics), and four languages (English, Mandarin, Malay, Japanese), each holding topics, sections, and items to tick, plus five System areas (Finance, Logistics, Retail and Commerce, Health, Travel and Hospitality) that show read-only system maps. Track content is managed in the database. Single user, laptop or desktop only.
 
 Implementation decisions are in `DECISIONS.md`. Detailed notes live in `docs/`.
 

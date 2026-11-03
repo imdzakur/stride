@@ -13,7 +13,6 @@ import {
 } from '@/shared/panel';
 import { AREA_LABELS, areaFromSlug, areaHref, isTrack } from '@/shared/tracks';
 import { Glyph } from '../glyph/glyph';
-import { TopicIcon, hasTopicIcon } from '../glyph/topic-icon';
 import { Skeleton } from '../skeleton/skeleton';
 import { MoveButtons } from '../ui/move-buttons';
 import styles from './area-panel.module.css';
@@ -171,11 +170,8 @@ export function AreaPanel({
                         data-active={activeSlug === topic.slug || undefined}
                         onClick={() => toggleTopic(topic.slug)}
                       >
-                        {hasTopicIcon(topic.title) ? (
-                          <TopicIcon title={topic.title} size={16} />
-                        ) : (
-                          <span className={styles.dot} aria-hidden="true" />
-                        )}
+                        {/* The position in the list, so the order reads at a glance. */}
+                        <span className={styles.number}>{topicIndex + 1}</span>
                         <span className={styles.label}>{topic.title}</span>
                         {editing ? null : (
                           <>

@@ -167,12 +167,16 @@
   border-left: 2px solid var(--tone-container, var(--color-line));
 }
 
-.dot {
-  width: 0.5rem;
-  height: 0.5rem;
+/* Topic number in place of an icon: fixed width so the titles line up. */
+.number {
+  min-width: 1.25rem;
   flex-shrink: 0;
-  border-radius: var(--radius-button);
-  background: var(--tone, var(--color-subtle));
+  color: var(--color-subtle);
+  font-size: var(--text-meta-size);
+  line-height: var(--text-meta-leading);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .label {

@@ -14,7 +14,7 @@ export type Area = Track | SystemArea;
 
 export const AREA_LABELS: Record<Area, string> = {
   se: 'Software Engineering',
-  ai: 'Intelligence System',
+  ai: 'Intelligent System',
   data: 'Data Science',
   devops: 'Development and Operations',
   dataeng: 'Data Engineering',
@@ -42,7 +42,7 @@ export function isSystemArea(value: string): value is SystemArea {
 // Readable URL path for each area. The short keys stay internal and in the database.
 export const AREA_SLUGS: Record<Area, string> = {
   se: 'software-engineering',
-  ai: 'intelligence-system',
+  ai: 'intelligent-system',
   data: 'data-science',
   devops: 'development-and-operations',
   dataeng: 'data-engineering',
@@ -71,7 +71,12 @@ export function areaFromSlug(slug: string): Area | null {
   return AREAS_BY_SLUG.get(slug) ?? null;
 }
 
-// Old links used the short keys, for example /se; they are redirected to the readable path.
+// Earlier readable paths that were renamed since.
+const RENAMED_SLUGS: Record<string, Area> = { 'intelligence-system': 'ai' };
+
+// Old links used the short keys, for example /se, or a renamed path; both are redirected to
+// the current readable path.
 export function areaFromLegacyKey(value: string): Area | null {
-  return isTrack(value) || isSystemArea(value) ? value : null;
+  if (isTrack(value) || isSystemArea(value)) return value;
+  return RENAMED_SLUGS[value] ?? null;
 }
