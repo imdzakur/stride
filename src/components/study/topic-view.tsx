@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { AREA_LABELS, type Track, areaHref } from '@/shared/tracks';
 import { ProgressBar } from '../progress/progress-bar';
 import { ProgressSummary } from '../progress/progress-summary';
-import { TopicIcon } from '../glyph/topic-icon';
 import { ToneGlyph } from '../glyph/tone-glyph';
 import pageStyles from '../shell/page.module.css';
 import { NotFoundCard, TreeState } from './tree-state';
@@ -26,10 +25,7 @@ export function TopicView({ track, topicSlug }: { track: Track; topicSlug: strin
                   <p className={pageStyles.crumbs}>
                     <Link href={areaHref(track)}>{AREA_LABELS[track]}</Link>
                   </p>
-                  <h1 className={`${pageStyles.title} ${styles.titleWithIcon}`}>
-                    {topic ? <TopicIcon title={topic.title} size={24} /> : null}
-                    {topic?.title ?? 'Topic'}
-                  </h1>
+                  <h1 className={pageStyles.title}>{topic?.title ?? 'Topic'}</h1>
                 </div>
               </header>
               {!topic ? (
@@ -40,13 +36,13 @@ export function TopicView({ track, topicSlug }: { track: Track; topicSlug: strin
                     <ProgressSummary label={`${topic.title} progress`} counts={topic.counts} />
                   </div>
                   <ul className={styles.sectionList}>
-                    {topic.sections.map((section) => (
+                    {topic.sections.map((section, index) => (
                       <li key={section.id}>
                         <Link
                           href={`${areaHref(track)}/${topic.slug}/${section.slug}`}
                           className={`glass ${styles.sectionRow}`}
                         >
-                          <span className={styles.dot} aria-hidden="true" />
+                          <span className={styles.number}>{index + 1}</span>
                           <span className={styles.sectionText}>
                             <span className={styles.topicTitle}>{section.title}</span>
                             <span className={styles.meta}>

@@ -29,7 +29,8 @@ Implementation decisions that `RULES.md` and `DESIGN-2.md` do not settle directl
 
 | Decision | Reason | Impact |
 | --- | --- | --- |
-| Topics in the side panel show their position number (1, 2, 3, and on) instead of an icon. | Latest instruction. | The number follows the saved order. Topic icons remain on the track page cards. |
+| Topics in the side panel show their position number (1, 2, 3, and on) instead of an icon. | Latest instruction. | The number follows the saved order. |
+| Brand marks (Java, Python, and the rest) are removed from every page as well; topic cards and section rows show their number. | Latest instruction: no Java logo and the like anywhere. | `topic-icons.ts` and `TopicIcon` are deleted, so the Simple Icons paths are no longer shipped. |
 | Intelligence System is renamed Intelligent System, at `/intelligent-system`. | Latest instruction. | The proxy redirects `/intelligence-system` and the older `/ai` with 308; the database key stays `ai`. |
 
 ## Four language tracks (2 November 2026, eleventh revision)

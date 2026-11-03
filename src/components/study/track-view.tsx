@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { AREA_LABELS, type Track, areaHref } from '@/shared/tracks';
-import { TopicIcon, hasTopicIcon } from '../glyph/topic-icon';
 import { ProgressBar } from '../progress/progress-bar';
 import { ProgressSummary } from '../progress/progress-summary';
 import { ToneGlyph } from '../glyph/tone-glyph';
@@ -40,14 +39,10 @@ export function TrackView({ track }: { track: Track }) {
                 <ProgressSummary label={`${label} progress`} counts={node.counts} />
               </div>
               <ul className={styles.topicGrid}>
-                {node.topics.map((topic) => (
+                {node.topics.map((topic, index) => (
                   <li key={topic.id} className={`glass ${styles.topicCard}`}>
                     <Link href={`${areaHref(track)}/${topic.slug}`} className={styles.topicHead}>
-                      {hasTopicIcon(topic.title) ? (
-                        <TopicIcon title={topic.title} size={20} />
-                      ) : (
-                        <span className={styles.dot} aria-hidden="true" />
-                      )}
+                      <span className={styles.number}>{index + 1}</span>
                       <span className={styles.topicTitle}>{topic.title}</span>
                       <span className={styles.percent}>{topic.counts.percent}%</span>
                     </Link>

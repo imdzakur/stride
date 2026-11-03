@@ -24,14 +24,15 @@
   text-decoration: underline;
 }
 
-/* A small tone dot marks a topic or section that has no icon of its own. */
-.dot {
-  width: 0.625rem;
-  height: 0.625rem;
-  margin: 0 0.3125rem;
+/* Position number of a topic or section, in place of an icon. */
+.number {
+  min-width: 1.25rem;
   flex-shrink: 0;
-  border-radius: var(--radius-button);
-  background: var(--tone, var(--color-subtle));
+  color: var(--tone, var(--color-subtle));
+  font-size: var(--text-label-size);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
 }
 
 .topicTitle {
@@ -209,10 +210,4 @@
   line-height: var(--text-meta-leading);
   color: var(--color-muted);
   white-space: pre-wrap;
-}
-
-.titleWithIcon {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
 }
